@@ -1,6 +1,7 @@
-import Login from "./components/Login/Login"
-import Signup from "./components/Signup/Signup"
-import Home from "./components/Home/Home"
+import Login from "./pages/Login/Login"
+import Signup from "./pages/Signup/Signup"
+import Home from "./pages/Home/Home"
+import Profile from "./pages/Profile/Profile"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 export default function App() {
@@ -18,7 +19,11 @@ export default function App() {
       {
         path:"/signup",
         element:<Signup/>,
-      }
+      },
+      {
+        path:"/profile",
+        element:<Profile/>,
+      },
     ]
   )
 
