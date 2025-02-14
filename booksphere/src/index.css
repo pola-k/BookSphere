@@ -3,20 +3,23 @@
 
 *
 {
-    /* margin: 0;
-    padding: 0; */
-    /* box-sizing: border-box; */
-    font-family: "Poppins", sans-serif;
-    /* user-select: none; (what if user wants to copy summary or post, i think it should be allowed */
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  user-select: none;
 }
 
-/* need to remove this or change it as it is affecting all the components, styles should be element-specific */
-/* #root
+:root
+{
+  --bgcolorlight: #E4CDA7;
+  --bgcolordark: #C19A6B;
+  --headingcolordark: #3E2723;
+  --textcolor: #8D5524;
+  --bordercolor: #A67B5B; 
+  --accentcolor: #A76D3E;
+}
+
+#root
 {
   width: 100vw;
   height: 100vh;
-  background-color: #E4CDA7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+}

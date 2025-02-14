@@ -1,72 +1,98 @@
-.container 
-{
-    width: 90%;
-    max-width: 1200px;
-    min-height: 90vh;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    background-color: #C19A6B;
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-.left-container 
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url("./src/images/bg-image.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-}
-
-.right-container 
+.signup-container 
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 4vh 2vw; 
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bgcolorlight);
+    box-sizing: border-box;
+}
+
+.container 
+{
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    display: flex;
+    background-color: var(--bgcolordark);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.left-container, .right-container 
+{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-container 
+{
+    background-image: url("./src/images/bg-image.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: all 0.3s ease-in-out;
+}
+
+.right-container 
+{
+    padding: 4vh 2vw;
     gap: 3vh;
     min-height: 0;
     width: 100%;
-    flex-grow: 1;
 }
 
 .right-header 
 {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: 1px;
+    width: 100%;
 }
 
 .right-header img 
 {
-    width: 10vh;
-    height: 11vh;
+    width: 8vh;
+    height: 9vh;
+    flex-shrink: 0; 
 }
 
 .right-header h1 
 {
-    color: #3E2723;
-    font-size: 4.5vh;
+    color: var(--headingcolordark);
+    font-size: clamp(1.5rem, 2vw, 1.8rem);
     font-weight: bolder;
-    white-space: nowrap;
-    text-transform: uppercase;
+    text-align: center;
+    max-width: 90%; 
+    margin-right: 0.5rem;
 }
 
 .right-container p 
 {
-    color: #8D5524;
+    color: var(--textcolor);
     font-size: 1.8vh;
     font-weight: 500;
     text-align: center;
     margin: 0 1.5rem;
+}
+
+.right-container a 
+{
+    font-weight: bold;
+    text-decoration: underline;
+    color: var(--textcolor);
 }
 
 .form 
@@ -83,29 +109,29 @@
 {
     padding: 1vh 1rem;
     width: 100%;
-    color: #8D5524;
+    color: var(--textcolor);
     outline: none;
     border: none;
-    border-bottom: 2px solid #A67B5B;
+    border-bottom: 2px solid var(--bordercolor);
     background-color: transparent;
     font-weight: 600;
     font-size: 1.75vh;
     transition: border-color 0.3s ease-in-out;
 }
 
-.input-field:focus
+.input-field:focus 
 {
-    border-bottom: 2px solid #8D5524;
+    border-bottom: 2px solid var(--textcolor);
 }
 
 .input-field::placeholder 
 {
-    color: #8D5524;
+    color: var(--textcolor);
 }
 
 .submit-btn 
 {
-    background-color: #8D5524;
+    background-color: var(--textcolor);
     cursor: pointer;
     padding: 1.5vh 1.5vw;
     font-size: 2vh;
@@ -123,56 +149,58 @@
 
 .submit-btn:hover 
 {
-    background: linear-gradient(135deg, #A76D3E, #8D5524);
+    background: linear-gradient(135deg, var(--accentcolor), var(--textcolor));
     transform: translateY(-2px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-@media (max-width: 600px), (max-height: 600px)
+@media (max-width: 700px) 
 {
-    .container
+    .container 
     {
-        width: 90%;
-        display: grid;
-        grid-template-columns: 1fr;
-        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        min-height: auto;
     }
 
-    .left-container
+    .left-container 
     {
         display: none;
     }
 
-    .right-container
+    .right-container 
     {
         text-align: center;
         align-items: center;
-        padding: 3vh 2vw;
+        padding: 5vh 5vw;
+        width: 100%;
     }
 
     .right-header 
     {
         flex-wrap: nowrap;
-        gap: 1vh;
+        gap: 2vh;
+        width: 100%;
     }
 
-    .right-header h1
+    .right-header h1 
     {
-        font-size: 2vh;
+        text-align: start;
+        font-size: clamp(1rem, 1.6vw, 1.3rem);
     }
 
-    .form
+    .form 
     {
-        gap: 1.5vh;
+        gap: 3vh;
     }
 
-    .input-field
+    .input-field 
     {
-        font-size: 1.5vh;
+        font-size: 1.6vh;
         padding: 1vh;
     }
 
-    .submit-btn
+    .submit-btn 
     {
         font-size: 1.8vh;
         padding: 1.2vh 1vw;
