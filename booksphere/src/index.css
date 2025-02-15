@@ -16,10 +16,14 @@
   --textcolor: #8D5524;
   --bordercolor: #A67B5B; 
   --accentcolor: #A76D3E;
+  --cardbg: rgba(255, 255, 255, 0.3);
+  --shadowcolor: rgba(0, 0, 0, 0.2);
+  --hovercolor: #B5835A;
 }
 
 #root
 {
   width: 100vw;
   height: 100vh;
+  background-color: var(--bgcolordark);
 }
