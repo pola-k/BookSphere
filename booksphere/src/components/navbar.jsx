@@ -45,43 +45,47 @@ export default function Navbar() {
 
   // Ensure the return statement handles content correctly
   return (
-    <header className="flex flex-col justify-evenly top-0 text-white py-2 sticky to z-50 bg-[#C19A6B] border-1 border-black">
-      <nav className="flex mx-4 items-center justify-around px-4">
+    <header className="flex flex-col justify-evenly top-0 text-white sticky to z-50 border-1 border-black" style={{ backgroundColor: "var(--bgcolordark)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
+
+      <nav className="flex items-center justify-between px-[1.5vw]">
 
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
-            <img src="./src/images/logo.png" alt="Logo-Text" className="h-10" />
+            <img src="./src/images/logo.png" alt="Logo-Text" className="h-[8vh] w-auto" />
           </Link>
 
-          <p className='text-lg font-bold ml-2'>BookSphere</p>
+          <p className='text-[1.5vw] font-bold mx-[0.25vw]'>BookSphere</p>
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center border-2 border-gray-300 bg-white rounded-lg px-4 py-2 w-[50vw] mx-auto">
+        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)" }}>
           <input
             type="text"
             placeholder="Search..."
             // value={query}
             // onChange={(e) => setQuery(e.target.value)}
-            className="outline-none w-full bg-transparent text-gray-700"
+            className="outline-none w-full bg-transparent"
           />
-          <button className="text-gray-500 hover:text-blue-500">
-            🔍
+          <button className="text-gray-500 hover:cursor-pointer">
+            <img src="./src/images/search.png" alt="" className='h-[1.5vw]'/>
           </button>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex justify-center space-x-4 text-lg font-bold mx-10">
-          <Link to="/profile" className="px-4 py-2 rounded-md">Profile</Link>
-          <Link to="/about" className="px-4 py-2 rounded-md">About</Link>
-        </div>
+        <div className="flex justify-center items-center gap-[2vw]">
 
-        {/* Profile Icon (can be rendered here or using a separate function) */}
-        <div className="">
-          <Link to="/">
-            <img src="./src/images/logo.png" alt="Logo-Text" className="h-10" />
-          </Link>
+          <div className='flex justify-center items-center gap-[2vw] text-[1.25vw] font-bold'>
+            <Link to="/profile" className="rounded-md">Profile</Link>
+            <Link to="/about" className="rounded-md">About</Link>
+          </div>
+
+          {/* Profile Icon (can be rendered here or using a separate function) */}
+          <div>
+            <Link to="/">
+              <img src="./src/images/profile-icon.png" alt="Logo-Text" className="h-[4.75vh] w-auto" />
+            </Link>
+          </div>
         </div>
 
         {/* Render header content based on the route */}
