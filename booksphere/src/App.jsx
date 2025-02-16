@@ -30,6 +30,7 @@ export default function App() {
         path:"/list",
         element:<List/>,
       },
+      {
         path:"/subscription",
         element:<Subscription/>,
       },
