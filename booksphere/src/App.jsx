@@ -2,6 +2,7 @@ import Login from "./pages/Login/Login"
 import Signup from "./pages/Signup/Signup"
 import Home from "./pages/Home/Home"
 import Homepage from "./pages/Homepage/Homepage"
+import List from "./pages/List/List"
 import Subscription from "./pages/subscription"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
@@ -26,9 +27,12 @@ export default function App() {
         element:<Homepage/>,
       },
       {
+        path:"/list",
+        element:<List/>,
+      },
         path:"/subscription",
         element:<Subscription/>,
-      }
+      },
     ]
   )
 
