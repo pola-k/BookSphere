@@ -3,6 +3,7 @@ import Signup from "./pages/Signup/Signup"
 import Home from "./pages/Home/Home"
 import Homepage from "./pages/Homepage/Homepage"
 import List from "./pages/List/List"
+import Subscription from "./pages/subscription"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 export default function App() {
@@ -28,6 +29,9 @@ export default function App() {
       {
         path:"/list",
         element:<List/>,
+      },
+        path:"/subscription",
+        element:<Subscription/>,
       },
     ]
   )
