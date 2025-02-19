@@ -1,20 +1,10 @@
 import { useState, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
+import MediaPreview from "./media-preview";
 
 export default function Post({ post }) {
 
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-    useEffect(() => {
-        const img = new Image();
-        img.src = post.image;
-        img.onload = () => {
-            setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-        };
-    }, [post.image]);
-
-    const isPortrait = dimensions.height > dimensions.width;
     const [liked, setLiked] = useState(false);
 
     function formatDate(date) {
@@ -33,7 +23,7 @@ export default function Post({ post }) {
             <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[#5f322c]">
 
                 {/* Username + Timestamp + Options*/}
-                <div className="flex w-full items-center justify-between text-lg">
+                <div className="flex w-full items-center justify-between text-[0.95vw]">
 
                     <div className="flex gap-[0.5vw] items-center">
                         <p>{post.user}</p>
@@ -52,52 +42,36 @@ export default function Post({ post }) {
 
                 {/* Flair */}
                 {post.flair &&
-                    <div className="text-xl text-black px-[0.5vw] py-[0.5vh] rounded-2xl bg-pink-200">
+                    <div className="text-[1vw] text-black px-[0.5vw] py-[0.5vh] rounded-2xl bg-pink-200">
                         {post.flair}
                     </div>
                 }
 
                 {/* Title */}
-                <div className="text-3xl font-bold text-left">
+                <div className="text-[1.75vw] font-bold text-left">
                     {post.title}
 
                 </div>
 
                 {/* Descrption */}
-                {!post.image &&
-                    <div className="text-xl text-left">
+                {!(post.media.length > 1) &&
+                    <div className="text-[1.1vw] text-left">
                         {post.description}
                     </div>
                 }
 
                 {/* Media */}
-                {/* handle multiple media files */}
                 <div className="flex w-full justify-center">
-                    {/* add checkd for image existence and maybe only display the image if some description exists too */}
-                    {post.image &&
-                        <div className="relative w-full max-h-[60vh] flex items-center justify-center overflow-hidden rounded-lg">
-                            {/* Add isPotrait check */}
-                            {isPortrait &&
-                                <img
-                                    src={post.image}
-                                    alt="Blurred background"
-                                    className="absolute inset-0 w-full h-full object-cover blur-xl scale-125 brightness-50"
-                                />
-                            }
 
-                            <img
-                                src={post.image}
-                                alt="Post"
-                                className="relative max-h-[60vh] max-w-full object-contain z-10"
-                            />
-                        </div>
+                    {post.media.length > 0 &&
+                        <MediaPreview media_list={post.media} />
                     }
                 </div>
 
                 {/* Icons */}
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
 
-                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-xl font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh]" style={{ backgroundColor: "var(--bgcolorlight)", color: "var(--navbarcolor)" }} onClick={() => setLiked(!liked)}>
+                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh]" style={{ backgroundColor: "var(--bgcolorlight)", color: "var(--navbarcolor)" }} onClick={() => setLiked(!liked)}>
 
                         <svg
                             viewBox="0 0 24 24"

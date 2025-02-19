@@ -59,7 +59,7 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
+        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw] text-[1vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
           <input
             type="text"
             placeholder="Search..."

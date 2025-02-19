@@ -21,7 +21,7 @@ export default function Homepage()
                     <HomeFeed/>
                 </div>
 
-                <div className='col-span-1 text-center text-2xl border-1' style={{borderColor: "var(--bordercolor)"}}>
+                <div className='col-span-1 text-center text-[1vw] border-1' style={{borderColor: "var(--bordercolor)"}}>
                     Recommendations..
                 </div>
 

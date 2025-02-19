@@ -10,6 +10,7 @@ export default function HomeFeed(){
             date: "2025-02-18T14:30:00Z",
             flair: "Question",
             title: "How to learn machine learning?",
+            media: [],
             description: "What is a good roadmap to getiing started with ML in order to land a job quickly?",
             likes: 3,
             comments: [
@@ -40,6 +41,7 @@ export default function HomeFeed(){
             date: "2024-01-18T14:30:00Z",
             flair: "Question",
             title: "How to learn machine learning?",
+            media: [],
             description: "What is a good roadmap to getiing started with ML in order to land a job quickly?",
             likes: 3,
             comments: [
@@ -70,7 +72,7 @@ export default function HomeFeed(){
             date: "2025-02-07T14:30:00Z",
             flair: "Question",
             title: "How to learn machine learning?",
-            image: "./src/images/harry-potter-deathly-hallows.jpeg",
+            media: ["./src/images/harry-potter-deathly-hallows.jpeg", "./src/images/fire.jpg"],
             description: "What is a good roadmap to getiing started with ML in order to land a job quickly?",
             likes: 3,
             comments: [],
@@ -82,7 +84,7 @@ export default function HomeFeed(){
             date: "2025-02-02T14:30:00Z",
             flair: "Question",
             title: "How to learn machine learning?",
-            image: "./src/images/fire.jpg",
+            media: ["./src/images/fire.jpg", ],
             description: "What is a good roadmap to getiing started with ML in order to land a job quickly?",
             likes: 3,
             comments: [],
