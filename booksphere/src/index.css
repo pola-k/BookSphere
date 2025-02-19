@@ -6,6 +6,8 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   user-select: none;
+  /* For Firefox */
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 :root
@@ -19,6 +21,12 @@
   --cardbg: rgba(255, 255, 255, 0.3);
   --shadowcolor: rgba(0, 0, 0, 0.2);
   --hovercolor: #B5835A;
+  --navbarcolor: #4c2a24;
+  --postcolor: #552f29;
+  --posthovercolor: #5f322c;
+  --scrollbar-thumb: #8D5524;
+  --scrollbar-track: #ffffff21;
+  --scrollbar-thumb-active: #9c5e27;
 }
 
 #root
@@ -26,4 +34,22 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--bgcolordark);
+}
+
+/* For modern browsers like Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
 }
