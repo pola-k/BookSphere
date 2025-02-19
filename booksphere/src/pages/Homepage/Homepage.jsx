@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../../components/navbar'
 import Sidebar from '../../components/sidebar'
+import HomeFeed from '../../components/home-feed'
 
 export default function Homepage()
 {
@@ -16,11 +17,11 @@ export default function Homepage()
                     <Sidebar/>
                 </div>
 
-                <div className='col-span-2 border-1 text-black text-center text-2xl' style={{borderColor: "var(--bordercolor)"}}>
-                    Main Content
+                <div className='col-span-2 h-full overflow-y-auto border-1 px-[3vw] py-[4vh] text-black text-center text-2xl' style={{borderColor: "var(--bordercolor)"}}>
+                    <HomeFeed/>
                 </div>
 
-                <div className='col-span-1 text-center text-2xl border-1' style={{borderColor: "var(--bordercolor)"}}>
+                <div className='col-span-1 text-center text-[1vw] border-1' style={{borderColor: "var(--bordercolor)"}}>
                     Recommendations..
                 </div>
 
