@@ -1,0 +1,510 @@
+.book-container 
+{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    background: var(--bgcolor);
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+.book-main-container 
+{
+    width: 90%;
+    height: fit-content;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    gap: 5rem;
+    background: var(--bgcolorlight);
+    border-radius: 16px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+    margin-top: 3rem;
+}
+
+.book-left-container, .book-right-container 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    min-height: 600px;
+}
+
+.book-left-container 
+{
+    width: 70%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.book-left-container img 
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 16px;
+}
+
+.book-right-container 
+{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.book-title 
+{
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--headingcolordark);
+}
+
+.book-author-details 
+{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--textcolor);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.book-author-image 
+{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.book-author-image img 
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: fill;
+}
+
+.book-rating 
+{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.book-rating h4 
+{
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--textcolor);
+    margin-left: 1rem;
+}
+
+.book-abstract 
+{
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--textcolor);
+    width: 100%;
+}
+
+.book-details 
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.book-publisher-details, 
+.book-first-published-details, 
+.book-isbn, 
+.book-pages, 
+.book-genres 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.book-publisher-details h3, 
+.book-first-published-details h3, 
+.book-isbn h3, 
+.book-pages h3, 
+.book-genres h3 
+{
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 1.25rem;
+    color: var(--headingcolordark);
+    min-width: 180px;
+    text-align: left;
+}
+
+.book-publisher-details p, 
+.book-first-published-details p, 
+.book-isbn p, 
+.book-pages p,
+.rating
+{
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--textcolor);
+    text-align: left;
+    width: 100%;
+}
+
+.book-genres ul 
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.book-genres li 
+{
+    font-size: 1.1rem;
+    color: var(--textcolor);
+    font-weight: 500;
+    border: 2px solid var(--bordercolor);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.book-genres li:hover 
+{
+    background: var(--accentcolor);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.add-to-list-btn, .review-submit-btn
+{
+    background-color: var(--textcolor);
+    cursor: pointer;
+    padding: 1.5vh 1.5vw;
+    font-size: 2vh;
+    width: fit-content;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    border-radius: 0.75rem;
+    color: #3E2723;
+    font-weight: 600;
+    align-self: start;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.add-to-list-btn:hover, .review-submit-btn:hover
+{
+    background: linear-gradient(135deg, var(--accentcolor), var(--textcolor));
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-rating
+{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.user-rating h3 
+{
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--headingcolordark);
+    margin-right: 1rem;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.user-review-container
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    padding: 2.5rem 6rem;
+    gap: 2rem;
+}
+
+.user-review-container h2
+{
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    color: var(--headingcolordark);
+    font-weight: bold;
+}
+
+.review-left-container
+{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-left-container img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 50%;
+}
+
+.review-right-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.review-main-container
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+    background-color: var(--bgcolorlight);
+    padding: 2rem 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.review-right-container textarea 
+{
+    width: 100%;
+    height: 120px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--textcolor);
+    background: var(--cardbg);
+    border: 2px solid var(--bordercolor);
+    border-radius: 0.75rem;
+    resize: none;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 10px var(--shadowcolor);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.review-right-container textarea:hover 
+{
+    border-color: var(--hovercolor);
+}
+
+.review-right-container textarea:focus 
+{
+    border-color: var(--accentcolor);
+    box-shadow: 0 4px 15px var(--shadowcolor);
+    background: var(--bgcolorlight);
+    color: var(--headingcolordark);
+}
+
+.review-right-container textarea::placeholder 
+{
+    color: rgba(141, 85, 36, 0.6); 
+    font-style: italic;
+    transition: color 0.3s ease-in-out;
+}
+
+.review-right-container textarea:focus::placeholder 
+{
+    color: rgba(141, 85, 36, 0.4);
+}
+
+.review-submit-btn
+{
+    align-self: flex-end;
+}
+
+.book-reviews-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2.5rem 6rem;
+}
+
+.book-reviews-container h2
+{
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    color: var(--headingcolordark);
+    font-weight: bold;
+}
+
+.book-review-main-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    width: 100%;
+    background-color: var(--bgcolorlight);
+    padding: 2rem 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 1085px) 
+{
+    .book-main-container 
+    {
+        flex-direction: column;
+        width: 95%;
+        gap: 3rem;
+        padding: 2rem;
+    }
+
+    .book-right-container 
+    {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .book-left-container
+    {
+        width: 100%;
+        height: 400px;
+    }
+
+    .book-title 
+    {
+        font-size: 1.8rem;
+    }
+
+    .book-author-details 
+    {
+        font-size: 1.2rem;
+    }
+
+    .book-abstract 
+    {
+        font-size: 1.1rem;
+    }
+
+    .book-details h3 
+    {
+        font-size: 1.1rem;
+    }
+
+    .book-details p, .book-genres li 
+    {
+        font-size: 1rem;
+    }
+
+    .add-to-list-btn, .review-submit-btn 
+    {
+        font-size: 1.8vh;
+        padding: 1.2vh 1.2vw;
+    }
+
+    .user-review-container, .book-reviews-container 
+    {
+        padding: 2rem 4rem;
+    }
+
+    .book-review-main-container, .review-main-container 
+    {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 700px) 
+{
+    .book-main-container 
+    {
+        width: 100%;
+        padding: 1.5rem;
+        gap: 2rem;
+    }
+
+    .book-title 
+    {
+        font-size: 1.5rem;
+    }
+
+    .book-author-details 
+    {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .book-author-image 
+    {
+        width: 60px;
+        height: 60px;
+    }
+
+    .book-abstract 
+    {
+        font-size: 1rem;
+    }
+
+    .book-details h3 
+    {
+        font-size: 1rem;
+    }
+
+    .book-details p, .book-genres li 
+    {
+        font-size: 0.9rem;
+    }
+
+    .add-to-list-btn, .review-submit-btn 
+    {
+        font-size: 1.6vh;
+        padding: 1vh 1vw;
+    }
+
+    .user-review-container, .book-reviews-container 
+    {
+        padding: 1.5rem;
+    }
+
+    .review-main-container 
+    {
+        flex-direction: row;
+        padding: 1rem;
+    }
+
+    .book-review-main-container
+    {
+        padding: 1rem;
+    }
+
+    .review-left-container 
+    {
+        width: 80px;
+        height: 80px;
+    }
+
+    .review-right-container textarea 
+    {
+        font-size: 1rem;
+        height: 100px;
+    }
+}

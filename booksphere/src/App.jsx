@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home"
 import Homepage from "./pages/Homepage/Homepage"
 import List from "./pages/List/List"
 import Subscription from "./pages/subscription"
+import Book from "./pages/Book/Book"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 export default function App() {
@@ -33,6 +34,10 @@ export default function App() {
       {
         path:"/subscription",
         element:<Subscription/>,
+      },
+      {
+        path:"/book/:id",
+        element:<Book/>,
       },
     ]
   )

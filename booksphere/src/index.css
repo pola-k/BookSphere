@@ -27,6 +27,8 @@
   --scrollbar-thumb: #8D5524;
   --scrollbar-track: #ffffff21;
   --scrollbar-thumb-active: #9c5e27;
+  --rating-orange: "#F2C265";
+  --rating-grey: "a9a9a9";
 }
 
 #root

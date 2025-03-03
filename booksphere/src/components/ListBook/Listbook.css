@@ -5,8 +5,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 16px;
-    width: 100%;
-    height: 300px;
+    width: 250px;
+    height: 500px;
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     background: rgba(255, 255, 255, 0.15);
@@ -20,42 +20,6 @@
 {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-}
-
-@media (max-width: 1024px) 
-{
-    .list-book-container 
-    {
-        width: 230px;
-        height: 280px;
-    }
-}
-
-@media (max-width: 875px) 
-{
-    .list-book-container 
-    {
-        width: 200px;
-        height: 250px;
-    }
-}
-
-@media (max-width: 690px) 
-{
-    .list-book-container 
-    {
-        width: 180px;
-        height: 230px;
-    }
-}
-
-@media (max-width: 550px) 
-{
-    .list-book-container 
-    {
-        width: 150px;
-        height: 200px;
-    }
 }
 
 .list-book-image 
@@ -88,4 +52,68 @@
 .list-book-container:hover .favorite-icon 
 {
     opacity: 1;
+}
+
+
+@media (min-width: 1200px) and (max-width: 1318px)
+{
+    .list-book-container 
+    {
+        width: 225px;
+        height: 450px;
+    }
+}
+
+@media (min-width: 1074px) and (max-width: 1200px) 
+{
+    .list-book-container 
+    {
+        width: 200px;
+        height: 400px;
+    }
+}
+
+@media (min-width: 739px) and (max-width: 1074px) 
+{
+    .list-book-container 
+    {
+        width: 180px;
+        height: 360px;
+    }
+}
+
+@media  (min-width: 628px) and (max-width: 739px)
+{
+    .list-book-container 
+    {
+        width: 150px;
+        height: 300px;
+    }
+}
+
+@media  (min-width: 540px) and (max-width: 628px)
+{
+    .list-book-container 
+    {
+        width: 125px;
+        height: 250px;
+    }
+}
+
+@media  (min-width: 380px) and (max-width: 540px)
+{
+    .list-book-container 
+    {
+        width: 20vw;
+        height: 35vh;
+    }
+}
+
+@media  (max-width: 380px)
+{
+    .list-book-container 
+    {
+        width: 30vw;
+        height: 50vh;
+    }
 }
