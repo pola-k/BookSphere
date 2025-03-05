@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
+import PostOptionsModal from "./post-options-modal";
 
 export default function Post({ post }) {
 
     const [liked, setLiked] = useState(false);
+    const [copied, setCopied] = useState(false);
+    const [isOptionsModal, ToggleOptionsModal] = useState(false)
 
     function formatDate(date) {
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone
@@ -16,9 +19,16 @@ export default function Post({ post }) {
         return difference;
     }
 
+    const handleCopy = (textToCopy) => {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 3000);
+        });
+    };
+
     return (
 
-        <div className="rounded-2xl" style={{ backgroundColor: "var(--postcolor)", color: "var(--bgcolorlight)" }}>
+        <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
 
             <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[#5f322c]">
 
@@ -32,11 +42,12 @@ export default function Post({ post }) {
                     </div>
 
                     {/* Options */}
-                    <div className="p-[0.30vw] rounded-3xl hover:bg-[#833f36]">
+                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[#833f36]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
 
-                    </div>
+                        <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} />
 
+                    </div>
 
                 </div>
 
@@ -71,7 +82,8 @@ export default function Post({ post }) {
                 {/* Icons */}
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
 
-                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh]" style={{ backgroundColor: "var(--bgcolorlight)", color: "var(--navbarcolor)" }} onClick={() => setLiked(!liked)}>
+                    {/* Like */}
+                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]" onClick={() => setLiked(!liked)}>
 
                         <svg
                             viewBox="0 0 24 24"
@@ -91,15 +103,23 @@ export default function Post({ post }) {
 
                     </div>
 
-                    <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh]" style={{ backgroundColor: "var(--bgcolorlight)" }}>
+                    {/* Comments */}
+                    <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
                         <img src="./src/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
                     </div>
 
-                    <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh]" style={{ backgroundColor: "var(--bgcolorlight)" }}>
+                    {/* Share */}
+                    {/* Send Post's Link to handle copy */}
+                    <div onClick={() => handleCopy("Post's Link")} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
                         <img src="./src/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
+                    
+                    {/* Copy Message */}
+                    {copied && <div className="z-60 fixed top-22/25 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-[3vw] py-[1vh] rounded-2xl text-3xl font-bold text-[var(--postcolor)] bg-[var(--bgcolorlight)]">
 
+                        Link Copied!
 
+                    </div>}
 
                 </div>
 
