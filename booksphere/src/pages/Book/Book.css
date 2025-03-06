@@ -2,8 +2,8 @@
 {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background: var(--bgcolor);
     overflow-x: hidden;
     box-sizing: border-box;
@@ -16,6 +16,7 @@
     justify-self: center;
     align-self: center;
     display: flex;
+    overflow: visible;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -226,6 +227,7 @@
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
+    overflow: visible;
 }
 
 .user-rating h3 
@@ -245,6 +247,7 @@
     margin-top: 3rem;
     padding: 2.5rem 6rem;
     gap: 2rem;
+    overflow: visible;
 }
 
 .user-review-container h2
@@ -290,6 +293,7 @@
     padding: 2rem 1rem;
     border-radius: 0.75rem;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    overflow: visible;
 }
 
 .review-right-container textarea 
@@ -346,6 +350,7 @@
     flex-direction: column;
     gap: 2rem;
     padding: 2.5rem 6rem;
+    overflow: visible;
 }
 
 .book-reviews-container h2
