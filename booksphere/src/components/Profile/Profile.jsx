@@ -23,7 +23,7 @@ function Profile({ username, fullName, description,  imageUrl = 'https://placeho
       </div>
 
       {/* Profile Options Row */}
-      <div className="absolute bottom-3 left-3 right-3   mt-[2vh] flex justify-around  border-[var(--bgcolorlight)] pt-[2vh] ">
+      <div className="absolute bottom-3 left-3 right-3  mt-[2vh] flex justify-around  border-[var(--bgcolorlight)] pt-[2vh] ">
         <div className="text-center">
           <span className="text-[1.75vw] font-bold text-[var(--bgcolorlight)]">1.2k</span>
           <span className="block text-[1vw] text-[var(--bgcolorlight)]">Posts</span>

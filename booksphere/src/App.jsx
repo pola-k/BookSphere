@@ -7,6 +7,7 @@ import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
 import Explore from "./pages/Explore/explore"
 import ProfilePage from "./pages/Profile/ProfilePage"
+import SettingsPage from "../src/pages/settings/Settings"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 export default function App() {
@@ -48,6 +49,10 @@ export default function App() {
       {
         path:"/profile",
         element:<ProfilePage/>,
+      },
+      {
+        path:"/settings",
+        element:<SettingsPage/>,
       },
     ]
   )
