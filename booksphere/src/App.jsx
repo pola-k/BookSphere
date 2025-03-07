@@ -5,6 +5,7 @@ import Homepage from "./pages/Homepage/Homepage"
 import List from "./pages/List/List"
 import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
+import CreatePostPage from "./pages/Create Post/create-post-page"
 import Explore from "./pages/Explore/explore"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
@@ -43,6 +44,10 @@ export default function App() {
       {
         path:"/explore",
         element:<Explore/>,
+      },
+      {
+        path:"/create-post",
+        element:<CreatePostPage/>,
       },
     ]
   )
