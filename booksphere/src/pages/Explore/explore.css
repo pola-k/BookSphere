@@ -1,0 +1,232 @@
+.explore-container
+{
+    background-color: var(--bgcolordark);
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+.explore-content 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+    color: white;
+    background-image: url("../../images/books-wallpaper.jpg");
+    height: 60vh;
+    z-index: -100;
+    filter: grayscale(80%);
+}
+.explore-content h1 
+{
+    font-size: 5rem;
+    font-weight: 600;
+    color: white;
+
+}
+.explore-content p
+{
+    font-size: 2rem;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+}
+.explore-genres 
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+}
+.genre 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 16px;
+    width: 700px;
+    height: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+.genre-img-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 100px;
+    border-radius: 50%;
+}
+.genre-img-container img
+{
+    width: 100%;
+    height: 100%;
+}
+.genre-text-content
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    gap: 1rem;
+}
+.genre-text-content h2
+{
+    font-size: 1.5rem;
+    color: var(--headingcolordark);
+    font-weight: 600;
+}
+.genre-text-content p
+{
+    font-size: 1rem;
+    color: var(--textcolor);
+    text-align: center;
+}
+.genre1
+{
+    background-color: #a21c1c;
+}
+.genre1 h2, .genre1 p
+{
+    color: black;
+}
+.genre2
+{
+    background-color: #3636d3;
+}
+.genre2 h2, .genre2 p
+{
+    color: white;
+}
+.genre3
+{
+    background-color: #f7b733;
+}
+.genre3 h2, .genre3 p
+{
+    color: black;
+}
+.genre4
+{
+    background-color: #2b2b2b;
+}
+.genre4 h2, .genre4 p
+{
+    color: white;
+}
+
+.genre:hover 
+{
+    transform: scale(1.05);
+}
+
+.explore-trending, 
+.explore-fiction, 
+.explore-romance, 
+.explore-mystery, 
+.explore-scifi, 
+.explore-new-releases 
+{
+    margin: 5rem;
+    padding: 1rem;
+    background-color: #D2B48C;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12), 0 4px 15px rgba(0, 0, 0, 0.09);
+}
+
+.explore-trending h2, 
+.explore-fiction h2, 
+.explore-romance h2, 
+.explore-mystery h2, 
+.explore-scifi h2, 
+.explore-new-releases h2 
+{
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--headingcolordark);
+    margin-bottom: 1rem;
+    padding: 1rem 3rem;
+}
+
+.scrolling-container 
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50px repeat(3, 1fr) 50px;
+    grid-gap: 1.5rem;
+    padding: 2rem;
+    margin: 0 auto;
+    overflow: hidden;
+    align-items: center;
+}
+
+.scroll-btn 
+{
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--headingcolordark);
+    border: 2px solid var(--headingcolordark);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-btn:hover 
+{
+    background-color: rgba(255, 255, 255, 0.4);
+    color: var(--bgcolordark);
+    border-color: var(--bgcolordark);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-btn:active 
+{
+    transform: translateY(-50%) scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.preview 
+{
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.preview.book-1 
+{
+    transform: scale(0.9);
+    opacity: 0.7;
+    z-index: 1;
+}
+
+.preview.book-2 
+{
+    transform: translateX(0) scale(1);
+    opacity: 1;
+    z-index: 2;
+}
+
+.preview.book-3 
+{
+    transform: translateX(20%) scale(0.9);
+    opacity: 0.7;
+    z-index: 1;
+}

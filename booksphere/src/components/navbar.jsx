@@ -2,7 +2,7 @@
 
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
-// import ProfileIcon from './profile-icon';
+import ProfileIconModal from './profile-icon-modal';
 
 export default function Navbar() {
   //   const [isMounted, setIsMounted] = useState(false); // Track if the component has mounted
@@ -43,23 +43,25 @@ export default function Navbar() {
   //     }
   //   };
 
+  const [isProfileModal, ToggleProfileModal] = useState(false)
+
   // Ensure the return statement handles content correctly
   return (
-    <header className="flex flex-col justify-evenly top-0 text-white sticky to z-50 border-1 border-black" style={{ backgroundColor: "var(--bgcolordark)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
+    <header className="flex flex-col justify-evenly top-0 text-white sticky to z-50" style={{ backgroundColor: "var(--navbarcolor)", color: "var(--bgcolorlight)" }}>
 
       <nav className="flex items-center justify-between px-[1.5vw]">
 
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
-            <img src="./src/images/logo.png" alt="Logo-Text" className="h-[8vh] w-auto" />
+            <img src="./src/images/logo-light.png" alt="Logo-Text" className="h-[8vh] w-auto" />
           </Link>
 
           <p className='text-[1.5vw] font-bold mx-[0.25vw]'>BookSphere</p>
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)" }}>
+        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw] text-[1vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
           <input
             type="text"
             placeholder="Search..."
@@ -76,16 +78,18 @@ export default function Navbar() {
         <div className="flex justify-center items-center gap-[2vw]">
 
           <div className='flex justify-center items-center gap-[2vw] text-[1.25vw] font-bold'>
-            <Link to="/profile" className="rounded-md">Profile</Link>
-            <Link to="/about" className="rounded-md">About</Link>
+            <Link to="/profile" className="rounded-md">Create Post</Link>
           </div>
 
           {/* Profile Icon (can be rendered here or using a separate function) */}
-          <div>
-            <Link to="/">
-              <img src="./src/images/profile-icon.png" alt="Logo-Text" className="h-[4.75vh] w-auto" />
-            </Link>
+          <div className='relative hover:cursor-pointer' onClick={() => ToggleProfileModal(!isProfileModal)}>
+
+              <img src="./src/images/profile-icon-light.png" alt="Logo-Text" className="h-[4.75vh] w-auto" />
+
+            <ProfileIconModal isOpen={isProfileModal} closeModal={ToggleProfileModal}/>
+
           </div>
+
         </div>
 
         {/* Render header content based on the route */}
