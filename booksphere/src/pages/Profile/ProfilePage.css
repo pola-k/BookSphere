@@ -1,0 +1,24 @@
+/* pages/Profile/ProfilePage.css */
+.profile-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.profile-section {
+  margin-bottom: 40px;
+}
+
+.page-content {
+  margin-top: 20px;
+}
+
+.page-content h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.page-content p {
+  font-size: 16px;
+  color: #666;
+}

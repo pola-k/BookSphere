@@ -7,6 +7,7 @@ import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
 import CreatePostPage from "./pages/Create Post/create-post-page"
 import Explore from "./pages/Explore/explore"
+import ProfilePage from "./pages/Profile/ProfilePage"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 export default function App() {
@@ -44,6 +45,10 @@ export default function App() {
       {
         path:"/explore",
         element:<Explore/>,
+      },
+      {
+        path:"/profile",
+        element:<ProfilePage/>,
       },
       {
         path:"/create-post",
