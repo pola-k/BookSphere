@@ -7,6 +7,7 @@ import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
 import CreatePostPage from "./pages/Create Post/create-post-page"
 import Explore from "./pages/Explore/explore"
+import CommentsPage from "./pages/Comments/comments-page"
 import ProfilePage from "./pages/Profile/ProfilePage"
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
@@ -53,6 +54,10 @@ export default function App() {
       {
         path:"/create-post",
         element:<CreatePostPage/>,
+      },
+      {
+        path:"/comments/:postID",
+        element:<CommentsPage/>,
       },
     ]
   )
