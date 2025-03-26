@@ -11,7 +11,7 @@ export default function Signup()
                     </div>
                     <div className="right-container">
                         <div className="right-header">
-                            <img src="./src/images/logo.png" alt="Logo" />
+                            <img src="/images/logo.png" alt="Logo" />
                             <h1>Join BookSphere</h1>
                         </div>
                         <p>Discover, discuss, and share your favorite reads with a community of book lovers. Dive into reviews, explore summaries, 

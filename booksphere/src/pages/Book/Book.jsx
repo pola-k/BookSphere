@@ -14,7 +14,7 @@ export default function Book()
     const [reviews, setReviews] = useState(book.reviews || [])
 
     const reviewBox = useRef(null)
-    const currUser = {username: "Sameer Khawar", user_img: "../../../src/images/user1.png"}
+    const currUser = {username: "Sameer Khawar", user_img: "/images/user1.png"}
 
     if (!book) 
     {
@@ -114,7 +114,7 @@ export default function Book()
                 <h2>WRITE REVIEW</h2>
                 <div className="review-main-container">
                     <div className="review-left-container">
-                        <img src="../../../src/images/user1.png" alt="User" />
+                        <img src="/images/user1.png" alt="User" />
                     </div>
                     <div className="review-right-container">
                         <textarea name="user-review" id="user-review" placeholder="Type your Review here..." ref={reviewBox}></textarea>
