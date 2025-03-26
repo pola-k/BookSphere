@@ -26,7 +26,7 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
 
     return (
 
-        <div ref={modalRef} className="absolute flex flex-col items-start mt-[2vh] p-[0.75vw] right-[0.125vw] gap-[1vh] rounded text-[1vw] font-bold w-[15vw]" style={{ backgroundColor: "var(--postcolor)", color: "var(--bgcolorlight)" }}>
+        <div ref={modalRef} className="absolute flex flex-col items-start mt-[2vh] p-[0.75vw] right-[0.125vw] gap-[1vh] rounded text-[1vw] font-bold w-[15vw] bg-[var(--postcolor)] text-[var(--bgcolorlight)]">
 
             <Link to="http://localhost:5173/profile" className="w-full">
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">

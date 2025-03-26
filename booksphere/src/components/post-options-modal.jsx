@@ -26,7 +26,7 @@ export default function PostOptionsModal({ isOpen, closeModal }) {
 
     return (
 
-        <div ref={modalRef} className="absolute flex flex-col items-start mt-[1.25vh] p-[0.5vw] right-0 gap-[1vh] rounded text-[1vw] w-[8vw] shadow-xl" style={{ backgroundColor: "var(--navbarcolor)", color: "var(--bgcolorlight)" }} onClick={(e) => e.stopPropagation()}>
+        <div ref={modalRef} className="absolute flex flex-col items-start mt-[1.25vh] p-[0.5vw] right-0 gap-[1vh] rounded text-[1vw] w-[8vw] shadow-xl bg-[var(--navbarcolor)] text-[var(--bgcolorlight)]" onClick={(e) => e.stopPropagation()}>
 
             <Link to="http://localhost:5173/saved" className="w-full">
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">

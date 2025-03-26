@@ -32,7 +32,7 @@ export default function Post({ post }) {
 
         <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
 
-            <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[#5f322c]">
+            <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[var(--posthovercolor)]">
 
                 {/* Username + Timestamp + Options*/}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
@@ -44,7 +44,7 @@ export default function Post({ post }) {
                     </div>
 
                     {/* Options */}
-                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[#833f36]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
+                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
 
                         <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} />

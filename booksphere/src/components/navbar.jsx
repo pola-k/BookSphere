@@ -47,7 +47,7 @@ export default function Navbar() {
 
   // Ensure the return statement handles content correctly
   return (
-    <header className="flex flex-col justify-evenly top-0 text-white sticky to z-50" style={{ backgroundColor: "var(--navbarcolor)", color: "var(--bgcolorlight)" }}>
+    <header className="flex flex-col justify-evenly top-0 sticky to z-50 bg-[var(--navbarcolor)] text-[var(--bgcolorlight)]">
 
       <nav className="flex items-center justify-between px-[1.5vw]">
 
@@ -61,7 +61,7 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center border-[0.25vh] border-gray-300 bg-white rounded-4xl px-[1vw] py-[1.25vh] w-[50vw] text-[1vw]" style={{ backgroundColor: "var(--bgcolorlight)", borderColor: "var(--bordercolor)", color: "var(--headingcolordark)" }}>
+        <div className="flex items-center border-[0.25vh] border-[var(--bordercolor)] bg-[var(--bgcolorlight)] text-[var(--headingcolordark)] rounded-4xl px-[1vw] py-[1.25vh] w-[50vw] text-[1vw]">
           <input
             type="text"
             placeholder="Search..."

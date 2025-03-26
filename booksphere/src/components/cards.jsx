@@ -1,6 +1,6 @@
 export default function Card({ messages }) {
     return (
-        <div className="p-5 space-y-5 relative z-10 h-70 w-55 max-w-full sm:w-55 rounded-2xl border-2 border-[#C19A6B] flex flex-col items-center justify-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">  
+        <div className="p-5 space-y-5 relative z-10 h-70 w-55 max-w-full sm:w-55 rounded-2xl border-2 border-[var(--bgcolordark)] flex flex-col items-center justify-center transition-transform duration-200 hover:-translate-y-1 hover:shadow-lg">  
             <h2 className="font-bold text-sm">{messages}</h2>
             {messages[0] === "Premium" ? <span className="text-3xl">$14.99</span> : <p className="text-3xl">$0.00</p>}
             
@@ -19,7 +19,7 @@ export default function Card({ messages }) {
                     </ul>
                 )}
             </ul>
-            <button className="rounded-full bg-gradient-to-tr from-[#C19A6B] to-[#E4CDA7] py-2 px-4 border border-transparent text-center text-sm text-white shadow-md cursor-pointer w-half max-w-xs" type="button">
+            <button className="rounded-full bg-gradient-to-tr from-[var(--bgcolordark)] to-[var(--bgcolorlight)] py-2 px-4 border border-transparent text-center text-sm text-white shadow-md cursor-pointer w-half max-w-xs" type="button">
                 Get Plan
             </button>
         </div>

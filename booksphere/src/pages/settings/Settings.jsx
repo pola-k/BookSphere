@@ -23,7 +23,7 @@ export default function SettingsPage() {
 
           {/* Change Profile Picture */}
           <div className="flex items-center gap-[2vw] mb-[3vh]">
-            <label className="text-[1.2vw] cursor-pointer p-[1vh] rounded-xl hover:bg-[#833f36] transition-all">
+            <label className="text-[1.2vw] cursor-pointer p-[1vh] rounded-xl hover:bg-[var(--optionsiconhovercolor)] transition-all">
               ✎ Change Profile Picture
               <input
                 type="file"
@@ -72,7 +72,7 @@ export default function SettingsPage() {
                 className="w-full p-[1vh] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)]"
                 placeholder="••••••••"
               />
-              <button className="px-[1.5vw] py-[0.5vh] bg-[var(--bgcolorlight)] text-[var(--postcolor)] rounded-xl hover:bg-[#833f36] transition-all">
+              <button className="px-[1.5vw] py-[0.5vh] bg-[var(--bgcolorlight)] text-[var(--postcolor)] rounded-xl hover:bg-[var(--optionsiconhovercolor)] transition-all">
                 Change
               </button>
             </div>
@@ -92,7 +92,7 @@ export default function SettingsPage() {
               }`}></div>
             </div>
           </div>
-            <button className="px-[1.5vw] py-[0.5vh] bg-[var(--bgcolorlight)] text-[var(--postcolor)] rounded-xl hover:bg-[#833f36] transition-all">
+            <button className="px-[1.5vw] py-[0.5vh] bg-[var(--bgcolorlight)] text-[var(--postcolor)] rounded-xl hover:bg-[var(--optionsiconhovercolor)] transition-all">
                 apply Changes
               </button>
         </div>
