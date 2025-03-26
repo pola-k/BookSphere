@@ -10,7 +10,6 @@ export default function Sidebar() {
 
                 <div className="flex flex-col justify-start gap-[2vh] text-[1.15vw] font-bold">
 
-<<<<<<< Updated upstream
                     <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                         <img src="./src/images/home.png" alt="" className="h-[2.5vw]" />
                         <p className="px-[1vw]">Home</p>
@@ -33,30 +32,6 @@ export default function Sidebar() {
 
                     <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                         <img src="./src/images/sparkle.png" alt="" className="h-[2.5vw]" />
-=======
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
-                        <img src="/images/home.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Home</p>
-                    </div>
-
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
-                        <img src="/images/books.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">My List</p>
-                    </div>
-
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
-                        <img src="/images/encyclopedia.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Encyclopedia</p>
-                    </div>
-
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
-                        <img src="/images/bookmark.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Saved</p>
-                    </div>
-
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
-                        <img src="/images/sparkle.png" alt="" className="h-[2.5vw]" />
->>>>>>> Stashed changes
                         <p className="px-[1vw]">Summarizer</p>
                     </div>
 

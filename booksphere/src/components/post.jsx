@@ -44,13 +44,8 @@ export default function Post({ post }) {
                     </div>
 
                     {/* Options */}
-<<<<<<< Updated upstream
                     <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
-=======
-                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[#833f36]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
-                        <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
->>>>>>> Stashed changes
 
                         <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} />
 
