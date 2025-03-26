@@ -77,8 +77,8 @@ export default function Navbar() {
         {/* Navigation Tabs */}
         <div className="flex justify-center items-center gap-[2vw]">
 
-          <div className='flex justify-center items-center gap-[2vw] text-[1.25vw] font-bold'>
-            <Link to="/profile" className="rounded-md">Create Post</Link>
+          <div className='rounded-4xl px-[1vw] py-[0.5vh] text-[1.25vw] font-bold hover:bg-[var(--optionshovercolor)]'>
+            <Link to="/create-post" className="rounded-md">Create Post</Link>
           </div>
 
           {/* Profile Icon (can be rendered here or using a separate function) */}

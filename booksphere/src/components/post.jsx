@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Dot } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
@@ -35,9 +37,9 @@ export default function Post({ post }) {
                 {/* Username + Timestamp + Options*/}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
 
-                    <div className="flex gap-[0.5vw] items-center">
+                    <div className="flex gap-[0.25vw] items-center">
                         <p>{post.user}</p>
-                        <p>.</p>
+                        <Dot/>
                         <p>{formatDate(post.date)}</p>
                     </div>
 
@@ -104,16 +106,18 @@ export default function Post({ post }) {
                     </div>
 
                     {/* Comments */}
-                    <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
-                        <img src="./src/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
-                    </div>
+                    <Link to={"/comments/" + post.id}>
+                        <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
+                            <img src="./src/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
+                        </div>
+                    </Link>
 
                     {/* Share */}
                     {/* Send Post's Link to handle copy */}
                     <div onClick={() => handleCopy("Post's Link")} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
                         <img src="./src/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
-                    
+
                     {/* Copy Message */}
                     {copied && <div className="z-60 fixed top-22/25 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-[3vw] py-[1vh] rounded-2xl text-3xl font-bold text-[var(--postcolor)] bg-[var(--bgcolorlight)]">
 
