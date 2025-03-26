@@ -156,7 +156,7 @@ export default function Explore() {
             <div className="explore-genres">
                 <div className="genre genre1" onClick={() => scrollToSection(romanceRef)}>
                     <div className="genre-img-container">
-                        <img src="../../../src/images/romance-logo.png" alt="Romance Logo" />
+                        <img src="/images/romance-logo.png" alt="Romance Logo" />
                     </div>
                     <div className="genre-text-content">
                         <h2>Explore Romance</h2>
@@ -165,7 +165,7 @@ export default function Explore() {
                 </div>
                 <div className="genre genre2" onClick={() => scrollToSection(scifiRef)}>
                     <div className="genre-img-container">
-                        <img src="../../../src/images/science-fiction-logo.png" alt="Science Fiction Logo" />
+                        <img src="/images/science-fiction-logo.png" alt="Science Fiction Logo" />
                     </div>
                     <div className="genre-text-content">
                         <h2>Explore Science Fiction</h2>
@@ -174,7 +174,7 @@ export default function Explore() {
                 </div>
                 <div className="genre genre3" onClick={() => scrollToSection(fictionRef)}>
                     <div className="genre-img-container">
-                        <img src="../../../src/images/fiction-logo.png" alt="Fiction Logo" />
+                        <img src="/images/fiction-logo.png" alt="Fiction Logo" />
                     </div>
                     <div className="genre-text-content">
                         <h2>Explore Fiction</h2>
@@ -183,7 +183,7 @@ export default function Explore() {
                 </div>
                 <div className="genre genre4" onClick={() => scrollToSection(mysteryRef)}>
                     <div className="genre-img-container">
-                        <img src="../../../src/images/mystery-logo.png" alt="Mystery Logo" />
+                        <img src="/images/mystery-logo.png" alt="Mystery Logo" />
                     </div>
                     <div className="genre-text-content">
                         <h2>Explore Mystery</h2>

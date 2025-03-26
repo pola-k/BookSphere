@@ -11,7 +11,7 @@ export default function Login()
                     </div>
                     <div className="login-right-container">
                         <div className="login-right-header">
-                            <img src="./src/images/logo.png" alt="Logo" />
+                            <img src="/images/logo.png" alt="Logo" />
                             <h1 className>Login to BookSphere</h1>
                         </div>
                         <p>Welcome back! Pick up where you left off, share your thoughts on books, and explore new literary adventures.

@@ -44,8 +44,13 @@ export default function Post({ post }) {
                     </div>
 
                     {/* Options */}
+<<<<<<< Updated upstream
                     <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
+=======
+                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[#833f36]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
+                        <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
+>>>>>>> Stashed changes
 
                         <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} />
 
@@ -108,14 +113,14 @@ export default function Post({ post }) {
                     {/* Comments */}
                     <Link to={"/comments/" + post.id}>
                         <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
-                            <img src="./src/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
+                            <img src="/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
                         </div>
                     </Link>
 
                     {/* Share */}
                     {/* Send Post's Link to handle copy */}
                     <div onClick={() => handleCopy("Post's Link")} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
-                        <img src="./src/images/share.png" alt="" className="h-[1.25vw]" />
+                        <img src="/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
 
                     {/* Copy Message */}

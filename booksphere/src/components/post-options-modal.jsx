@@ -32,7 +32,7 @@ export default function PostOptionsModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/bookmark-outline.png"
+                        src="/images/bookmark-outline.png"
                         alt="Save-Icon"
                         className="h-[3.5vh] w-auto"
                         priority
@@ -46,7 +46,7 @@ export default function PostOptionsModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/hide-icon.png"
+                        src="/images/hide-icon.png"
                         alt="Hide-Icon"
                         className="h-[3.5vh] w-auto"
                         priority
@@ -60,7 +60,7 @@ export default function PostOptionsModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/finish.png"
+                        src="/images/finish.png"
                         alt="Report-Icon"
                         className="h-[3.5vh] w-auto"
                         priority

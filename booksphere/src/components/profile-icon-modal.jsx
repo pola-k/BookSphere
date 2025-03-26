@@ -32,7 +32,7 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/profile-icon-light.png"
+                        src="/images/profile-icon-light.png"
                         alt="Profile-Icon"
                         className="rounded-full h-[5vh] w-auto"
                         priority
@@ -46,7 +46,7 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/settings-icon.png"
+                        src="/images/settings-icon.png"
                         alt="Settings-Icon"
                         className="rounded-full h-[5vh] w-auto"
                         priority
@@ -61,7 +61,7 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
                 <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
-                        src="./src/images/logout-icon.png"
+                        src="/images/logout-icon.png"
                         alt="Logout-Icon"
                         className="rounded-full h-[5vh] w-auto"
                         priority

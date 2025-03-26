@@ -54,7 +54,7 @@ export default function Navbar() {
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/">
-            <img src="./src/images/logo-light.png" alt="Logo-Text" className="h-[8vh] w-auto" />
+            <img src="/images/logo-light.png" alt="Logo-Text" className="h-[8vh] w-auto" />
           </Link>
 
           <p className='text-[1.5vw] font-bold mx-[0.25vw]'>BookSphere</p>
@@ -70,7 +70,7 @@ export default function Navbar() {
             className="outline-none w-full bg-transparent"
           />
           <button className="text-gray-500 hover:cursor-pointer">
-            <img src="./src/images/search.png" alt="" className='h-[1.5vw]'/>
+            <img src="/images/search.png" alt="" className='h-[1.5vw]'/>
           </button>
         </div>
 
@@ -84,7 +84,7 @@ export default function Navbar() {
           {/* Profile Icon (can be rendered here or using a separate function) */}
           <div className='relative hover:cursor-pointer' onClick={() => ToggleProfileModal(!isProfileModal)}>
 
-              <img src="./src/images/profile-icon-light.png" alt="Logo-Text" className="h-[4.75vh] w-auto" />
+              <img src="/images/profile-icon-light.png" alt="Logo-Text" className="h-[4.75vh] w-auto" />
 
             <ProfileIconModal isOpen={isProfileModal} closeModal={ToggleProfileModal}/>
 

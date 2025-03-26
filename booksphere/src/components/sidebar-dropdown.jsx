@@ -24,36 +24,61 @@ export default function Sidebar_Dropdown() {
                     <ul className="space-y-[2vh] py-[1vh]">
 
                         <li>
+<<<<<<< Updated upstream
                             <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                                 <img src="./src/images/question.png" alt="" className="h-[2vw]" />
+=======
+                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
+                                <img src="/images/question.png" alt="" className="h-[2vw]" />
+>>>>>>> Stashed changes
                                 <p className="px-[1vw]">Help</p>
                             </div>
                         </li>
 
                         <li>
+<<<<<<< Updated upstream
                             <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                                 <img src="./src/images/info.png" alt="" className="h-[2vw]" />
+=======
+                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
+                                <img src="/images/info.png" alt="" className="h-[2vw]" />
+>>>>>>> Stashed changes
                                 <p className="px-[1vw]">About Booksphere</p>
                             </div>
                         </li>
 
                         <li>
+<<<<<<< Updated upstream
                             <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                                 <img src="./src/images/handshake.png" alt="" className="h-[2vw]" />
+=======
+                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
+                                <img src="/images/handshake.png" alt="" className="h-[2vw]" />
+>>>>>>> Stashed changes
                                 <p className="px-[1vw]">User Agreement</p>
                             </div>
                         </li>
 
                         <li>
+<<<<<<< Updated upstream
                             <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                                 <img src="./src/images/privacy-policy.png" alt="" className="h-[2vw]" />
+=======
+                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
+                                <img src="/images/privacy-policy.png" alt="" className="h-[2vw]" />
+>>>>>>> Stashed changes
                                 <p className="px-[1vw]">Privacy Policy</p>
                             </div>
                         </li>
 
                         <li>
+<<<<<<< Updated upstream
                             <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                                 <img src="./src/images/law.png" alt="" className="h-[2vw]" />
+=======
+                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[#A76D3E]">
+                                <img src="/images/law.png" alt="" className="h-[2vw]" />
+>>>>>>> Stashed changes
                                 <p className="px-[1vw]">Rules</p>
                             </div>
                         </li>

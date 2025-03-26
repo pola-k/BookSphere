@@ -10,7 +10,7 @@ export default function RecommendationsFeed() {
             "author": ["Arthur Conan Doyle"],
             "year": 1902,
             "genre": ["Mystery", "Detective"],
-            "image": "../../../src/images/sherlock-hounds-of-baskerville.jpg",
+            "image": "/images/sherlock-hounds-of-baskerville.jpg",
         },
         {
             "id": 2,
@@ -18,7 +18,7 @@ export default function RecommendationsFeed() {
             "author": ["J.K. Rowling"],
             "year": 2007,
             "genre": ["Fantasy", "Adventure"],
-            "image": "../../../src/images/harry-potter-deathly-hallows.jpeg",
+            "image": "/images/harry-potter-deathly-hallows.jpeg",
         },
         {
             "id": 3,
@@ -26,7 +26,7 @@ export default function RecommendationsFeed() {
             "author": ["Friedrich Nietzsche"],
             "year": 1886,
             "genre": ["Philosophy", "Non-fiction"],
-            "image": "../../../src/images/beyond-good-and-evil.jpg",
+            "image": "/images/beyond-good-and-evil.jpg",
         },
         {
             "id": 4,
@@ -34,7 +34,7 @@ export default function RecommendationsFeed() {
             "author": ["Ernest Hemingway"],
             "year": 1952,
             "genre": ["Fiction", "Classic"],
-            "image": "../../../src/images/the-old-man-and-the-sea.jpg",
+            "image": "/images/the-old-man-and-the-sea.jpg",
         },
         {
             "id": 5,
@@ -42,7 +42,7 @@ export default function RecommendationsFeed() {
             "author": ["Arthur Conan Doyle"],
             "year": 1902,
             "genre": ["Mystery", "Detective"],
-            "image": "../../../src/images/sherlock-hounds-of-baskerville.jpg",
+            "image": "/images/sherlock-hounds-of-baskerville.jpg",
         },
     ]
 

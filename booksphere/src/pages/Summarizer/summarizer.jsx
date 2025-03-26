@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Navbar from "../../components/navbar";
-import image1 from "../../images/the-old-man-and-the-sea.jpg";
-import image2 from "../../images/to-kill-a-mockingbird.png";
+import image1 from "/images/the-old-man-and-the-sea.jpg";
+import image2 from "/images/to-kill-a-mockingbird.png";
 export default function Summarizer() {
     const [title, setTitle] = useState("");
     const [summary, setSummary] = useState("");

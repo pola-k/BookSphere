@@ -2,8 +2,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 import Login from "./pages/Login/Login"
 import Signup from "./pages/Signup/Signup"
-import Home from "./pages/Home/Home"
-import Homepage from "./pages/Homepage/Homepage"
+import Homepage from "./pages/Home/Homepage"
 import List from "./pages/List/List"
 import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
@@ -20,7 +19,7 @@ export default function App() {
     [
       {
         path:"/",
-        element:<Home/>,
+        element:<Homepage/>,
       },
       {
         path:"/login",
@@ -31,7 +30,7 @@ export default function App() {
         element:<Signup/>,
       },
       {
-        path:"/homepage",
+        path:"/home",
         element:<Homepage/>,
       },
       {
