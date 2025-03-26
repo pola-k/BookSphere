@@ -37,23 +37,5 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--bgcolordark);
-  overflow-x: hidden;
 }
 
-/* For modern browsers like Chrome, Edge, Safari */
-::-webkit-scrollbar {
-  width: 1rem;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb);
-  border-radius: 1rem;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: var(--scrollbar-thumb-active);
-}
