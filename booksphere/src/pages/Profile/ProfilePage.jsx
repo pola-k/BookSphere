@@ -5,7 +5,7 @@ import RecommendationsFeed from '../../components/recommendations-feed'
 import React from 'react';
 import Profile from '../../components/Profile/Profile'; // Import the Profile component
 import './ProfilePage.css'; // Optional: for page-specific styling
-import ProfilePic from "../../images/profile-icon-light.png"
+import ProfilePic from "/images/profile-icon-light.png"
 export default function ProfilePage() {
   const profileData = {
     username: 'JohnDoe',

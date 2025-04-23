@@ -2,8 +2,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom"
 
 import Login from "./pages/Login/Login"
 import Signup from "./pages/Signup/Signup"
-import Home from "./pages/Home/Home"
-import Homepage from "./pages/Homepage/Homepage"
+import Homepage from "./pages/Home/Homepage"
 import List from "./pages/List/List"
 import Subscription from "./pages/Subscription/subscription"
 import Book from "./pages/Book/Book"
@@ -13,13 +12,14 @@ import CommentsPage from "./pages/Comments/comments-page"
 import ProfilePage from "./pages/Profile/ProfilePage"
 import SettingsPage from "../src/pages/settings/Settings"
 import Summarizer from "./pages/Summarizer/summarizer"
+
 export default function App() {
 
   const router = createBrowserRouter(
     [
       {
         path:"/",
-        element:<Home/>,
+        element:<Homepage/>,
       },
       {
         path:"/login",
@@ -30,7 +30,7 @@ export default function App() {
         element:<Signup/>,
       },
       {
-        path:"/homepage",
+        path:"/home",
         element:<Homepage/>,
       },
       {
@@ -67,9 +67,8 @@ export default function App() {
       },
       {
         path:"/summarizer",
-        element:<Summarizer />,
+        element:<Summarizer/>,
       },
-      
     ]
   )
 

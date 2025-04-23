@@ -14,7 +14,7 @@
     gap: 1rem;
     padding: 2.5rem;
     color: white;
-    background-image: url("../../images/books-wallpaper.jpg");
+    background-image: url("/images/books-wallpaper.jpg");
     height: 60vh;
     z-index: -100;
     filter: grayscale(80%);

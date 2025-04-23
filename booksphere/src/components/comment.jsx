@@ -2,7 +2,7 @@ import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import { Dot } from "lucide-react";
-import message_bubble from '../images/speech-bubble.png';
+import message_bubble from '/images/speech-bubble.png';
 import CommentBox from "./comment-box";
 
 export default function Comment({ comment, depth }) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Subscription.css";
 import Card from "../../components/cards";
-import Crown from "../../images/card.png";
+import Crown from "/images/card.png";
 
 export default function Subscription() {
     const Myarray = ["Basic", "Premium"];
