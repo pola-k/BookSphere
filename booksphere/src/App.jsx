@@ -12,8 +12,7 @@ import Explore from "./pages/Explore/explore"
 import CommentsPage from "./pages/Comments/comments-page"
 import ProfilePage from "./pages/Profile/ProfilePage"
 import SettingsPage from "../src/pages/settings/Settings"
-import {createBrowserRouter, RouterProvider} from "react-router-dom"
-
+import Summarizer from "./pages/Summarizer/summarizer"
 export default function App() {
 
   const router = createBrowserRouter(
@@ -66,6 +65,11 @@ export default function App() {
         path:"/settings",
         element:<SettingsPage/>,
       },
+      {
+        path:"/summarizer",
+        element:<Summarizer />,
+      },
+      
     ]
   )
 
