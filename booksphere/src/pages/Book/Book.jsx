@@ -3,20 +3,60 @@ import Navbar from "../../components/navbar"
 import Rating from "../../components/rating"
 import Review from "../../components/Review/review"
 import { useParams } from "react-router-dom"
-import { useState, useRef } from "react"
-import {books} from "../../../book_data"
+import { useState, useRef, useEffect } from "react"
 
 export default function Book() 
 {
     const { id } = useParams();
-    const book = books.find((book) => book.id === parseInt(id))
+    const [loading, setLoading] = useState(true); 
 
-    const [reviews, setReviews] = useState(book.reviews || [])
+    useEffect(() => {
+        async function fetchBookData() {
+            try 
+            {
+                const res = await fetch(`http://localhost:5001/api/getbooksdata/id/${id}`);
+                if (!res.ok) throw new Error("Network response was not ok");
+                const data = await res.json();
+                setBook(data);
+                console.log(data);
+            } 
+            catch (err) 
+            {
+                console.error("Fetch error:", err);
+            }
+            finally 
+            {
+                setLoading(false);
+            }
+
+        }
+
+        fetchBookData();
+    }, [id]);
+    
+    const [book, setBook] = useState(null)
+
+    useEffect(() => {
+        if (book && book.Reviews) {
+          setReviews(book.Reviews)
+        }
+    }, [book])
+
+    const [reviews, setReviews] = useState([])
 
     const reviewBox = useRef(null)
     const currUser = {username: "Sameer Khawar", user_img: "/images/user1.png"}
 
-    if (!book) 
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <Navbar />
+                <h1>Loading...</h1>
+            </div>
+        );
+    }
+
+    if (!book && !loading) 
     {
         return (
             <>
@@ -53,7 +93,8 @@ export default function Book()
         setReviews([...reviews, newReview])
     }
 
-    const reviewComponents = reviews.map((review, index) => (<Review key={index} review={review}/>))
+    const reviewComponents = reviews.length === 0 ? <p>No reviews yet.</p> : 
+    reviews.map((review, index) => (<Review key={index} review={review}/>))
 
     return(
         <>
@@ -68,14 +109,14 @@ export default function Book()
                     <div className="book-author-details">
                         {book.author_image && (
                             <div className="book-author-image">
-                                <img src={book.author_image} alt={book.author} />
+                                <img src={book.Authors[0].image} alt={book.Authors[0].name} />
                             </div>
                         )}
-                        <h2>{book.author.join(", ")}</h2>
+                        <h2>{book.Authors.map((a) => a.name).join(", ")}</h2>
                     </div>
                     <div className="book-rating">
-                        <Rating rating={book.rating} rateable={false} />
-                        <h4>Rated by: {book.ratedBy} Users</h4>
+                        <Rating rating={book.averageRating} rateable={false} />
+                        <h4>Rated by: {book.ratingCount} Users</h4>
                     </div>
                     <p className="book-abstract">{book.abstract}</p>
                     <div className="book-publisher-details">
@@ -84,7 +125,7 @@ export default function Book()
                     </div>
                     <div className="book-first-published-details">
                         <h3>First Published</h3>
-                        <p>{book.year}</p>
+                        <p>{book.publish_date}</p>
                     </div>
                     <div className="book-isbn">
                         <h3>ISBN</h3>
@@ -92,13 +133,13 @@ export default function Book()
                     </div>
                     <div className="book-pages">
                         <h3>Pages</h3>
-                        <p>{book.pages}</p>
+                        <p>{book.no_pages}</p>
                     </div>
                     <div className="book-genres">
                         <h3>Genres</h3>
                         <ul>
-                            {book.genre.map((g, index) => (
-                                <li key={index}>{g}</li>
+                            {book.Genres.map((g, index) => (
+                                <li key={index}>{g.name.toUpperCase()}</li>
                             ))}
                         </ul>
                     </div>
@@ -123,9 +164,9 @@ export default function Book()
                 </div>
             </div>
             <div className="book-reviews-container">
-                <h2>Reviews {book.reviewCount}</h2>
+                <h2>Reviews {book.Reviews.length}</h2>
                 <div className="book-review-main-container">
-                    {reviewComponents}
+                    {reviewComponents ? reviewComponents : <h3>No Reviews Yet</h3>}
                 </div>
             </div>
         </div>

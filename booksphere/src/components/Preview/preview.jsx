@@ -13,9 +13,9 @@ export default function Preview(props)
                 <div className="preview-hover-overlay">
                     <div className="preview-book-info">
                         <h3>{book.title}</h3>
-                        <p>Author: {book.author}</p>
+                        <p>Author: {book.Authors.length ? book.Authors[0].name : book.author_id}</p>
                         <div className="preview-rating">
-                            Rating: {book.rating ? `${book.rating}/5` : 'N/A'}
+                            Rating: {book.averageRating ? `${book.averageRating}/5` : 'N/A'}
                         </div>
                     </div>
                 </div>

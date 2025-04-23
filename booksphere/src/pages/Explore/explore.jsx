@@ -12,44 +12,128 @@ export default function Explore() {
     const scifiRef = useRef(null);
     const mysteryRef = useRef(null);
 
+    const [romanceBooks, setRomanceBooks] = useState([]);
+    const [fictionBooks, setFictionBooks] = useState([]);
+    const [scifiBooks, setScifiBooks] = useState([]);
+    const [mysteryBooks, setMysteryBooks] = useState([]);
+    const [newReleases, setNewReleases] = useState([]);
+    const [trendingBooks, setTrendingBooks] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            const romanceData = await getRomanceBooks();
+            const fictionData = await getFictionBooks();
+            const scifiData = await getScifiBooks();
+            const mysteryData = await getMysteryBooks();
+            const newReleasesData = await getNewReleases();
+            const trendingData = await getTrendingBooks();
+
+            setRomanceBooks(romanceData);
+            setFictionBooks(fictionData);
+            setScifiBooks(scifiData);
+            setMysteryBooks(mysteryData);
+            setNewReleases(newReleasesData);
+            setTrendingBooks(trendingData);
+            setLoading(false);
+        }
+
+        fetchData();
+    }, []);
+
+
     function scrollToSection(ref) {
         ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
-    function getTrendingBooks() {
-        let trendingBooks = [];
-        let selectedIndexes = new Set();
-    
-        while (selectedIndexes.size < 6) {
-            let randomIndex = Math.floor(Math.random() * books.length);
-            if (!selectedIndexes.has(randomIndex)) {
-                selectedIndexes.add(randomIndex);
-            }
+    async function getTrendingBooks() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/trending`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
         }
-    
-        selectedIndexes.forEach(index => trendingBooks.push(books[index]));
-    
-        return trendingBooks;
     }
     
-    function getRomanceBooks() {
-        return books.filter(book => book.genre.includes("Romance"))
+    async function getRomanceBooks() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/genre/romance`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
+        }
     }
 
-    function getFictionBooks() {
-        return books.filter(book => book.genre.includes("Fiction"))
+    async function getFictionBooks() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/genre/fiction`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
+        }
     }
 
-    function getScifiBooks() {
-        return books.filter(book => book.genre.includes("Science Fiction"));
+    async function getScifiBooks() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/genre/science-fiction`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
+        }
     }
 
-    function getMysteryBooks() {
-        return books.filter(book => book.genre.includes("Mystery"));
+    async function getMysteryBooks() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/genre/mystery`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
+        }
     }
 
-    function getNewReleases() {
-        return books.sort((a, b) => b.year - a.year).slice(0, 6);
+    async function getNewReleases() {
+        try 
+        {
+            const res = await fetch(`http://localhost:5001/api/getbooksdata/latest`);
+            if (!res.ok) throw new Error("Network response was not ok");
+            const data = await res.json();
+            return data;
+        } 
+        catch (err) 
+        {
+            console.error("Fetch error:", err);
+            return [];
+        }
     }
 
     function useSmoothScroll(books) {
@@ -83,13 +167,6 @@ export default function Explore() {
         return { startIndex, scrollLeft, scrollRight };
     }
 
-    const trendingBooks = getTrendingBooks();
-    const romanceBooks = getRomanceBooks();
-    const fictionBooks = getFictionBooks();
-    const scifiBooks = getScifiBooks();
-    const mysteryBooks = getMysteryBooks();
-    const newReleases = getNewReleases();
-
     const trendingScrolling = useSmoothScroll(trendingBooks);
     const romanceScrolling = useSmoothScroll(romanceBooks);
     const fictionScrolling = useSmoothScroll(fictionBooks);
@@ -98,6 +175,8 @@ export default function Explore() {
     const newReleasesScrolling = useSmoothScroll(newReleases);
 
     function renderBookSection(books, scrollingInfo) {
+        console.log(books);
+        console.log("Hello");
         if (books.length <= 3) {
             return books.map((book, index) => (
                 <Preview 
@@ -142,6 +221,14 @@ export default function Explore() {
                     <FaChevronRight />
                 </button>
             </>
+        );
+    }
+
+    if(loading) {
+        return (
+            <div className="loading-container">
+                <h1>Loading...</h1>
+            </div>
         );
     }
 
