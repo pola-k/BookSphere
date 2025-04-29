@@ -12,7 +12,7 @@ import CommentsPage from "./pages/Comments/comments-page"
 import ProfilePage from "./pages/Profile/ProfilePage"
 import SettingsPage from "../src/pages/settings/Settings"
 import Summarizer from "./pages/Summarizer/summarizer"
-
+import ProtectedRoute from "./components/protected_routes"
 export default function App() {
 
   const router = createBrowserRouter(
@@ -39,7 +39,12 @@ export default function App() {
       },
       {
         path:"/subscription",
-        element:<Subscription/>,
+
+        element:(
+        <ProtectedRoute>        <Subscription/>
+        </ProtectedRoute>
+        ),
+
       },
       {
         path:"/book/:id",
@@ -51,19 +56,27 @@ export default function App() {
       },
       {
         path:"/profile",
-        element:<ProfilePage/>,
+        element: (
+          <ProtectedRoute>
+          <ProfilePage/>
+          </ProtectedRoute>
+        ),
       },
       {
         path:"/create-post",
-        element:<CreatePostPage/>,
+        element:(
+        <ProtectedRoute>        <CreatePostPage/>
+        </ProtectedRoute>
+        ),
+
       },
       {
         path:"/comments/:postID",
-        element:<CommentsPage/>,
+        element: ( <ProtectedRoute><CommentsPage/> </ProtectedRoute> ),
       },
       {
         path:"/settings",
-        element:<SettingsPage/>,
+        element: (<ProtectedRoute><SettingsPage/> </ProtectedRoute>),
       },
       {
         path:"/summarizer",
