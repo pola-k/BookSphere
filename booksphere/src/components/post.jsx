@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Dot } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
@@ -7,14 +7,13 @@ import MediaPreview from "./media-preview";
 import PostOptionsModal from "./post-options-modal";
 
 export default function Post({ post }) {
-
     const [liked, setLiked] = useState(false);
     const [copied, setCopied] = useState(false);
-    const [isOptionsModal, ToggleOptionsModal] = useState(false)
+    const [isOptionsModal, ToggleOptionsModal] = useState(false);
 
     function formatDate(date) {
-        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone
-        const zonedDate = toZonedTime(date, userTimeZone); // Convert UTC to user's timezone
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const zonedDate = toZonedTime(date, userTimeZone);
         let difference = formatDistanceToNow(zonedDate, { addSuffix: true });
 
         difference = difference.replace(/^about\s/, "");
@@ -29,71 +28,71 @@ export default function Post({ post }) {
     };
 
     return (
-
         <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
-
             <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[var(--posthovercolor)]">
 
                 {/* Username + Timestamp + Options*/}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
-
                     <div className="flex gap-[0.25vw] items-center">
                         <p>{post.user}</p>
-                        <Dot/>
+                        <Dot />
                         <p>{formatDate(post.date)}</p>
                     </div>
 
                     {/* Options */}
-                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
+                    <div
+                        className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]"
+                        onClick={() => ToggleOptionsModal(!isOptionsModal)}
+                    >
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
 
-                        <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} />
-
+                        {/* Pass postId to modal */}
+                        <PostOptionsModal
+                            isOpen={isOptionsModal}
+                            closeModal={ToggleOptionsModal}
+                            postId={post.id}
+                        />
                     </div>
-
                 </div>
 
                 {/* Flair */}
-                {post.flair &&
+                {post.flair && (
                     <div className="text-[1vw] text-black px-[0.5vw] py-[0.5vh] rounded-2xl bg-pink-200">
                         {post.flair}
                     </div>
-                }
+                )}
 
                 {/* Title */}
                 <div className="text-[1.75vw] font-bold text-left">
                     {post.title}
-
                 </div>
 
-                {/* Descrption */}
-                {!(post.media.length > 1) &&
+                {/* Description */}
+                {!(post.media.length > 1) && (
                     <div className="text-[1.1vw] text-left">
                         {post.description}
                     </div>
-                }
+                )}
 
                 {/* Media */}
                 <div className="flex w-full justify-center">
-
-                    {post.media.length > 0 &&
-                        <MediaPreview media_list={post.media} />
-                    }
+                    {post.media.length > 0 && <MediaPreview media_list={post.media} />}
                 </div>
 
                 {/* Icons */}
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
-
                     {/* Like */}
-                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]" onClick={() => setLiked(!liked)}>
-
+                    <div
+                        className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]"
+                        onClick={() => setLiked(!liked)}
+                    >
                         <svg
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-[1.25vw] cursor-pointer transition-all duration-200"
-                            fill={liked ? "red" : "none"} // Toggle fill color
-                            stroke="red" // Keep red stroke for outline effect
-                            strokeWidth="3" // Make outline more visible
+                            fill={liked ? "red" : "none"}
+                            stroke="red"
+                            strokeWidth="3"
                         >
                             <path
                                 id="primary"
@@ -102,7 +101,6 @@ export default function Post({ post }) {
                         </svg>
 
                         {post.likes}
-
                     </div>
 
                     {/* Comments */}
@@ -113,22 +111,21 @@ export default function Post({ post }) {
                     </Link>
 
                     {/* Share */}
-                    {/* Send Post's Link to handle copy */}
-                    <div onClick={() => handleCopy("Post's Link")} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
+                    <div
+                        onClick={() => handleCopy("Post's Link")}
+                        className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]"
+                    >
                         <img src="/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
 
                     {/* Copy Message */}
-                    {copied && <div className="z-60 fixed top-22/25 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-[3vw] py-[1vh] rounded-2xl text-3xl font-bold text-[var(--postcolor)] bg-[var(--bgcolorlight)]">
-
-                        Link Copied!
-
-                    </div>}
-
+                    {copied && (
+                        <div className="z-60 fixed top-22/25 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-[3vw] py-[1vh] rounded-2xl text-3xl font-bold text-[var(--postcolor)] bg-[var(--bgcolorlight)]">
+                            Link Copied!
+                        </div>
+                    )}
                 </div>
-
             </div>
-
         </div>
-    )
+    );
 }
