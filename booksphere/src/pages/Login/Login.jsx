@@ -22,8 +22,7 @@ export default function Login()
         });
         console.log('Response:', response.data); 
         // Store the token in localStorage
-        localStorage.setItem('token', response.data.token);
-        
+        sessionStorage.setItem('user_id', response.data.user_id);
         // Redirect to dashboard or home page
         navigate('/explore');
         
