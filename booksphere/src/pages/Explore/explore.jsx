@@ -4,6 +4,7 @@ import { books } from "../../../book_data";
 import "./explore.css";
 import Preview from "../../components/Preview/preview";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import Loading from "../../components/Loading/Loading";
 
 export default function Explore() {
 
@@ -175,8 +176,6 @@ export default function Explore() {
     const newReleasesScrolling = useSmoothScroll(newReleases);
 
     function renderBookSection(books, scrollingInfo) {
-        console.log(books);
-        console.log("Hello");
         if (books.length <= 3) {
             return books.map((book, index) => (
                 <Preview 
@@ -226,9 +225,7 @@ export default function Explore() {
 
     if(loading) {
         return (
-            <div className="loading-container">
-                <h1>Loading...</h1>
-            </div>
+            <Loading />
         );
     }
 

@@ -33,14 +33,23 @@
 
 .review-right-top
 {
+    width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    justify-content: space-between;
 }
 
 .review-right-top h2
 {
     font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--headingcolordark);
+    margin-right: 2rem;
+}
+
+.review-right-top h4
+{
+    font-size: 0.9rem;
     font-weight: bold;
     color: var(--headingcolordark);
     margin-right: 2rem;
@@ -71,6 +80,7 @@
         color: var(--headingcolordark);
         margin-right: 1rem;
     }
+
     .review-right p
     {
         font-size: 0.7rem;
@@ -107,6 +117,13 @@
         font-weight: bold;
         color: var(--headingcolordark);
         margin-right: 0.5rem;
+    }
+    .review-right-top h4
+    {
+        font-size: 0.5rem;
+        font-weight: bold;
+        color: var(--headingcolordark);
+        margin-right: 2rem;
     }
     .review-right p
     {

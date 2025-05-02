@@ -1,14 +1,72 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import axios from "axios";
 
-export default function Rating({ rating, rateable }) {   
+export default function Rating({ rating, rateable, book_id, refetch }) {   
     const stars = Array(5).fill(0);
     const [selectedRating, setSelectedRating] = useState(rating);
     const [hoverValue, setHoverValue] = useState(null);
+    const user = sessionStorage.getItem("user")
+    const parsedUser = JSON.parse(user);
+    const userId = parsedUser.id
 
-    const handleClickStar = (value) => {
+    useEffect(() => {
+        if(rateable)
+        {
+            fetchRating();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!rateable) 
+        {
+            setSelectedRating(rating);
+        }
+    }, [rating]);
+    
+
+    async function updateRating(value) {
+        try 
+        {
+            const rating_status = await axios.post(`http://localhost:5001/api/rating/updateRating`, {
+                user_id: userId,
+                book_id: book_id,
+                score: value
+            }); 
+        }
+        catch
+        {
+            console.error("Error updating rating");
+        }
+    }
+
+    async function fetchRating() {
+        try 
+        {
+            const response = await axios.get(`http://localhost:5001/api/rating/getRating`, {
+                params: {
+                    user_id: userId,
+                    book_id: book_id
+                }
+            });
+    
+            if (response.data.score !== undefined) 
+            {
+                setSelectedRating(response.data.score);
+            }
+        } 
+        catch (error) 
+        {
+            console.error("Error fetching rating", error);
+        }
+    }
+    
+
+    const handleClickStar = async (value) => {
         if (rateable) {
             setSelectedRating(value);
+            await updateRating(value);
+            await refetch();
         }
     };
 

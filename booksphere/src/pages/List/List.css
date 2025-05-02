@@ -41,6 +41,25 @@
     overflow-y: auto;
 }
 
+.no-books-container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.no-books
+{
+    font-size: 4rem;
+    text-align: center;
+    color: var(--headingcolordark);
+    margin: 0 auto;
+    width: 100%;
+    font-weight: 600;
+}
+
 @media (min-width: 1200px) and (max-width: 1318px)
 {
     .content-container 
