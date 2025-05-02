@@ -2,10 +2,11 @@ import Navbar from '../../components/navbar'
 import Sidebar from '../../components/sidebar'
 import HomeFeed from '../../components/home-feed'
 import RecommendationsFeed from '../../components/recommendations-feed'
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 import Profile from '../../components/Profile/Profile'; // Import the Profile component
 import './ProfilePage.css'; // Optional: for page-specific styling
 import ProfilePic from "/images/profile-icon-light.png"
+import axios from "axios"
 export default function ProfilePage() {
   const profileData = {
     username: 'JohnDoe',
