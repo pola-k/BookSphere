@@ -19,13 +19,18 @@ export default function Login()
         const response = await axios.post('http://localhost:5001/api/auth/login', {
           email,
           password
-        });
+        },
+        {
+          withCredentials: true,
+        }
+        
+      );
         console.log('Response:', response.data); 
         // Store the token in localStorage
-        localStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('user_id', response.data.user_id);
         
         // Redirect to dashboard or home page
-        navigate('/explore');
+        navigate('/profile');
         
       } catch (err) {
         setError(err.response?.data?.message || 'Login Karna mushkil e babu bhaya.');
@@ -40,7 +45,7 @@ export default function Login()
                     <div className="login-right-container">
                         <div className="login-right-header">
                             <img src="/images/logo.png" alt="Logo" />
-                            <h1 className>Login to BookSphere</h1>
+                            <h1 className = "login-title">Login to BookSphere</h1>
                         </div>
                         <p>Welcome back! Pick up where you left off, share your thoughts on books, and explore new literary adventures.
                          Enter your credentials to continue.</p>
