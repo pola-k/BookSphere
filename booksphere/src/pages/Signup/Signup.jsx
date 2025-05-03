@@ -3,13 +3,17 @@ import './Signup.css'
 
 import axios from 'axios';
 
-const handleSignup = async (e) => {
+
+export default function Signup()
+{
+  const navigate = useNavigate();  
+  const handleSignup = async (e) => {
+
   e.preventDefault();
 
   const username = e.target.username.value;
   const email = e.target.email.value;
   const password = e.target.password.value;
-  const navigate = useNavigate();
 
   try {
     const res = await axios.post("http://localhost:5001/api/auth/signup", {
@@ -30,8 +34,6 @@ const handleSignup = async (e) => {
 };
 
 
-export default function Signup()
-{
     return (
         <>
             <div className="signup-container">
@@ -45,7 +47,7 @@ export default function Signup()
                         </div>
                         <p>Discover, discuss, and share your favorite reads with a community of book lovers. Dive into reviews, explore summaries, 
                             and build your personal bookshelf. Sign up and start your literary journey today!</p>
-                        <form className='form' onSubmit={handleSignup}>
+                        <form className='form' onSubmit={handleSignup} >
                             <input className='input-field' type="text" placeholder="Username" id="username" name='username' required/>
                             <input className='input-field' type="email" placeholder="Email" id="email" name='email' required/>
                             <input className='input-field' type="password" placeholder="Password" id="password" name='password' required/>
