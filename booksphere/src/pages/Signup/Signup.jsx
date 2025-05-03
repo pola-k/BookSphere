@@ -1,5 +1,34 @@
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import './Signup.css'
+
+import axios from 'axios';
+
+const handleSignup = async (e) => {
+  e.preventDefault();
+
+  const username = e.target.username.value;
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  const navigate = useNavigate();
+
+  try {
+    const res = await axios.post("http://localhost:5001/api/auth/signup", {
+      username,
+      email,
+      password
+    }, {
+      withCredentials: true // Required to accept HTTP-only cookie
+    });
+
+    console.log("User signed up:", res.data);
+    navigate('/profile'); // Redirect to login page after successful signup
+    // You can rdirect or store res.data.user_id in sessionStorage
+
+  } catch (err) {
+    console.error("Signup error:", err.response?.data || err.message);
+  }
+};
+
 
 export default function Signup()
 {
@@ -16,7 +45,7 @@ export default function Signup()
                         </div>
                         <p>Discover, discuss, and share your favorite reads with a community of book lovers. Dive into reviews, explore summaries, 
                             and build your personal bookshelf. Sign up and start your literary journey today!</p>
-                        <form className='form'>
+                        <form className='form' onSubmit={handleSignup}>
                             <input className='input-field' type="text" placeholder="Username" id="username" name='username' required/>
                             <input className='input-field' type="email" placeholder="Email" id="email" name='email' required/>
                             <input className='input-field' type="password" placeholder="Password" id="password" name='password' required/>

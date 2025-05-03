@@ -373,6 +373,15 @@
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
 }
 
+.no-reviews
+{
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--headingcolordark);
+    text-align: center;
+    text-transform: uppercase;
+}
+
 @media (max-width: 1085px) 
 {
     .book-main-container 
