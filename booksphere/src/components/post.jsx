@@ -6,8 +6,7 @@ import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
 import PostOptionsModal from "./post-options-modal";
 
-export default function Post({ post, feedType }) {
-
+export default function Post({ post, feedType, isSaved }) {
     const [liked, setLiked] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isOptionsModal, ToggleOptionsModal] = useState(false);
@@ -16,7 +15,6 @@ export default function Post({ post, feedType }) {
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const zonedDate = toZonedTime(date, userTimeZone);
         let difference = formatDistanceToNow(zonedDate, { addSuffix: true });
-
         difference = difference.replace(/^about\s/, "");
         return difference;
     }
@@ -32,12 +30,11 @@ export default function Post({ post, feedType }) {
         <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
             <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[var(--posthovercolor)]">
 
-                {/* Username + Timestamp + Options*/}
+                {/* Username + Timestamp + Options */}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
                     <div className="flex gap-[0.25vw] items-center">
-                        {/* <p>{post.user}</p> */}
                         <p>username</p>
-                        <Dot/>
+                        <Dot />
                         <p>{formatDate(post.date_created)}</p>
                     </div>
 
@@ -47,35 +44,34 @@ export default function Post({ post, feedType }) {
                         onClick={() => ToggleOptionsModal(!isOptionsModal)}
                     >
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
-
-                        <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} feedType={feedType} postID={post.id} />
-
+                        <PostOptionsModal
+                            isOpen={isOptionsModal}
+                            closeModal={ToggleOptionsModal}
+                            feedType={feedType}
+                            postID={post.id}
+                            isSaved={isSaved} // 👈 p
+                        />
                     </div>
                 </div>
-
-                {/* Flair */}
-                {/* {post.flair &&
-                    <div className="text-[1vw] text-black px-[0.5vw] py-[0.5vh] rounded-2xl bg-pink-200">
-                        {post.flair}
-                    </div>
-                } */}
 
                 {/* Title */}
                 <div className="text-[1.75vw] font-bold text-left">
                     {post.title}
                 </div>
 
-                {/* Descrption */}
-                {!(post.media.length > 0) &&
+                {/* Description */}
+                {(!post.media || post.media.length === 0) && (
                     <div className="text-[1.1vw] text-left">
                         {post.description}
                     </div>
                 )}
 
                 {/* Media */}
-                <div className="flex w-full justify-center">
-                    {post.media.length > 0 && <MediaPreview media_list={post.media} />}
-                </div>
+                {post.media && post.media.length > 0 && (
+                    <div className="flex w-full justify-center">
+                        <MediaPreview media_list={post.media} />
+                    </div>
+                )}
 
                 {/* Icons */}
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
@@ -97,20 +93,21 @@ export default function Post({ post, feedType }) {
                                 d="M20.28,4.74a5.82,5.82,0,0,0-8.28,0,5.82,5.82,0,0,0-8.28,0,5.94,5.94,0,0,0,0,8.34l7.57,7.62a1,1,0,0,0,1.42,0l7.57-7.62a5.91,5.91,0,0,0,0-8.34Z"
                             />
                         </svg>
-
                         {post.likes}
                     </div>
 
                     {/* Comments */}
-                    <Link to={"/comments/" + post.id}>
+                    <Link to={`/comments/${post.id}`}>
                         <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
                             <img src="/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
                         </div>
                     </Link>
 
                     {/* Share */}
-                    {/* Send Post's Link to handle copy */}
-                    <div onClick={() => handleCopy(post.id)} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
+                    <div
+                        onClick={() => handleCopy(post.id)}
+                        className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]"
+                    >
                         <img src="/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
 

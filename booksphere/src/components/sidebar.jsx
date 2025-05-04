@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import Sidebar_Dropdown from "./sidebar-dropdown"
 
 export default function Sidebar() {
@@ -25,10 +27,10 @@ export default function Sidebar() {
                         <p className="px-[1vw]">Encyclopedia</p>
                     </div>
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/bookmark.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Saved</p>
-                    </div>
+                    <Link to="/saved" className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+    <img src="./src/images/bookmark.png" alt="" className="h-[2.5vw]" />
+    <p className="px-[1vw]">Saved</p>
+</Link>
 
                     <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
                         <img src="./src/images/sparkle.png" alt="" className="h-[2.5vw]" />
