@@ -1,8 +1,16 @@
-import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import axios from "axios"; // ✅ Directly import axios here
+import { Link } from "react-router-dom"
+import { useState, useEffect, useRef } from "react"
+import axios from "axios";
 
-export default function PostOptionsModal({ isOpen, closeModal, postId }) {
+// Render Only Save & Delete for Self Posts
+export default function PostOptionsModal({ isOpen, closeModal, feedType, postID }) {
+
+    const user = sessionStorage.getItem("user")
+    const parsedUser = JSON.parse(user);
+    const userId = parsedUser.id
+
+    const [message, setMessage] = useState("");
+
     const modalRef = useRef(null);
 
     useEffect(() => {
@@ -53,42 +61,63 @@ export default function PostOptionsModal({ isOpen, closeModal, postId }) {
     };
     
 
-    return (
-        <div
-            ref={modalRef}
-            className="absolute flex flex-col items-start mt-[1.25vh] p-[0.5vw] right-0 gap-[1vh] rounded text-[1vw] w-[8vw] shadow-xl bg-[var(--navbarcolor)] text-[var(--bgcolorlight)]"
-            onClick={(e) => e.stopPropagation()}
-        >
-            {/* Save Post */}
-            <div
-                onClick={handleSave}
-                className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)] cursor-pointer w-full"
-            >
-                <img
-                    src="/images/bookmark-outline.png"
-                    alt="Save-Icon"
-                    className="h-[3.5vh] w-auto"
-                    priority="true"
-                />
-                Save
-            </div>
+    const deletePost = async () => {
 
-            {/* Hide */}
-            <Link to="http://localhost:5173/settings" className="w-full">
-                <div className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+        console.log(postID, userId)
+        try {
+            console.log("Inside Try block", userId)
+            const response = await axios.delete('http://localhost:5001/api/auth/delete-post',
+                {   
+                    params: 
+                    {
+                        user_id: userId,
+                        post_id: postID
+                    },
+                    withCredentials: true,
+                }
+            );
+
+            // console.log(response)
+            
+        } catch (error) {
+            setMessage(error.response?.data?.message || 'Error fetching posts...');
+        }
+    };
+
+    return (
+
+        <div ref={modalRef} className="z-60 absolute flex flex-col items-start mt-[1.25vh] p-[0.5vw] right-0 gap-[1vh] rounded text-[1vw] w-[8vw] shadow-xl bg-[var(--navbarcolor)] text-[var(--bgcolorlight)]" onClick={(e) => e.stopPropagation()}>
+
+            <Link to="http://localhost:5173/saved" className="w-full">
+                <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+
+                    <img
+                        src="/images/bookmark-outline.png"
+                        alt="Save-Icon"
+                        className="h-[3.5vh] w-auto"
+                        priority
+                    />
+
+                    Save
+                </div>
+            </Link>
+
+            {feedType === "home" &&
+                <div href="/settings" className="w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+
                     <img
                         src="/images/hide-icon.png"
-                        alt="Hide-Icon"
+                        alt="Report-Icon"
                         className="h-[3.5vh] w-auto"
                         priority="true"
                     />
                     Hide
                 </div>
-            </Link>
+            }
 
-            {/* Report */}
-            <Link to="http://localhost:5173/list" className="w-full">
-                <div className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+            {feedType === "home" &&
+                <div href="/settings" className="w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+
                     <img
                         src="/images/finish.png"
                         alt="Report-Icon"
@@ -97,7 +126,22 @@ export default function PostOptionsModal({ isOpen, closeModal, postId }) {
                     />
                     Report
                 </div>
-            </Link>
+            }
+
+            {feedType === "user" &&
+                <div href="/settings" className="w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]" onClick={deletePost}>
+
+                    <img
+                        src="/images/hide-icon.png"
+                        alt="Trash-Icon"
+                        className="h-[3.5vh] w-auto"
+                        priority
+                    />
+
+                    Delete
+                </div>
+            }
+
         </div>
     );
 }

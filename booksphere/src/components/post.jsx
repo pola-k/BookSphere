@@ -6,7 +6,8 @@ import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
 import PostOptionsModal from "./post-options-modal";
 
-export default function Post({ post }) {
+export default function Post({ post, feedType }) {
+
     const [liked, setLiked] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isOptionsModal, ToggleOptionsModal] = useState(false);
@@ -34,9 +35,10 @@ export default function Post({ post }) {
                 {/* Username + Timestamp + Options*/}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
                     <div className="flex gap-[0.25vw] items-center">
-                        <p>{post.user}</p>
-                        <Dot />
-                        <p>{formatDate(post.date)}</p>
+                        {/* <p>{post.user}</p> */}
+                        <p>username</p>
+                        <Dot/>
+                        <p>{formatDate(post.date_created)}</p>
                     </div>
 
                     {/* Options */}
@@ -46,29 +48,25 @@ export default function Post({ post }) {
                     >
                         <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
 
-                        {/* Pass postId to modal */}
-                        <PostOptionsModal
-                            isOpen={isOptionsModal}
-                            closeModal={ToggleOptionsModal}
-                            postId={post.id}
-                        />
+                        <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} feedType={feedType} postID={post.id} />
+
                     </div>
                 </div>
 
                 {/* Flair */}
-                {post.flair && (
+                {/* {post.flair &&
                     <div className="text-[1vw] text-black px-[0.5vw] py-[0.5vh] rounded-2xl bg-pink-200">
                         {post.flair}
                     </div>
-                )}
+                } */}
 
                 {/* Title */}
                 <div className="text-[1.75vw] font-bold text-left">
                     {post.title}
                 </div>
 
-                {/* Description */}
-                {!(post.media.length > 1) && (
+                {/* Descrption */}
+                {!(post.media.length > 0) &&
                     <div className="text-[1.1vw] text-left">
                         {post.description}
                     </div>
@@ -111,10 +109,8 @@ export default function Post({ post }) {
                     </Link>
 
                     {/* Share */}
-                    <div
-                        onClick={() => handleCopy("Post's Link")}
-                        className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]"
-                    >
+                    {/* Send Post's Link to handle copy */}
+                    <div onClick={() => handleCopy(post.id)} className="relative p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] bg-[var(--bgcolorlight)]">
                         <img src="/images/share.png" alt="" className="h-[1.25vw]" />
                     </div>
 

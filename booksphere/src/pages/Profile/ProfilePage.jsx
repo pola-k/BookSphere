@@ -77,7 +77,7 @@ export default function ProfilePage() {
               description={profileData.description}
               imageUrl={profileData.imageUrl}
             />
-            <HomeFeed/>
+            <HomeFeed feedType={"user"}/>
           </div>
         </div>
 

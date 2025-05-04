@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 
-export default function PostUploadModal() {
+export default function PostUploadModal({ setFilesMethod }) {
 
   const [files, setFiles] = useState([]);
   const [dragging, setDragging] = useState(false);
@@ -15,18 +15,25 @@ export default function PostUploadModal() {
 
   const handleFileChange = (event) => {
     const selectedFiles = Array.from(event.target.files);
+    console.log("Existing Valid Files: ", files)  //kfidvoievoireofmeovenbcijnoren
     handleFiles(selectedFiles);
   };
 
   const handleFiles = (selectedFiles) => {
     // Filter files to only allow JPEG and PNG
+    const validTypes = ["image/jpeg", "image/jpg", "image/png"]
     const validFiles = selectedFiles.filter((file) =>
-      ["image/jpeg", "image/png"].includes(file.type)
+      validTypes.includes(file.type)
     );
 
     if (validFiles.length > 0) {
-      setFiles((prevFiles) => [...prevFiles, ...validFiles]);
-    } else {
+      const updatedFiles = [...files, ...validFiles];
+      setFiles(updatedFiles);
+      setFilesMethod(updatedFiles);    // setting these files in the main form
+      console.log("New Valid Files: ", updatedFiles)    //ncibdinvpomeonvfroivencpef
+    }
+
+    else {
       alert("Only JPEG and PNG images are allowed.");
     }
   };
@@ -36,13 +43,12 @@ export default function PostUploadModal() {
   };
 
   return (
-    
+
     <div className="max-w-[40vw] mb-[2vh]">
       {/* Upload Box */}
       <label
-        className={`flex flex-col items-center justify-center w-full p-[2vh] border-[0.25vh] border-dashed rounded-2xl cursor-pointer ${
-          dragging ? "border-[var(--bgcolorlight)] bg-[var(--navbarcolor)]" : "border-[var(--accentcolor)]"
-        }`}
+        className={`flex flex-col items-center justify-center w-full p-[2vh] border-[0.25vh] border-dashed rounded-2xl cursor-pointer ${dragging ? "border-[var(--bgcolorlight)] bg-[var(--navbarcolor)]" : "border-[var(--accentcolor)]"
+          }`}
         onDragOver={(e) => {
           e.preventDefault();
           setDragging(true);
@@ -97,7 +103,7 @@ export default function PostUploadModal() {
                 onClick={() => removeFile(index)}
                 className="absolute top-[0.5vh] right-[0.5vh] text-[0.75vw] text-[0.75vw] bg-black opacity-0 text-gray-300 text-[0.75vw] rounded-full w-[2.5vh] h-[2.5vh] flex items-center justify-center group-hover:opacity-70 transition"
               >
-                <X/>
+                <X />
               </button>
             </div>
           ))}
