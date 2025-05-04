@@ -1,6 +1,6 @@
 export const posts = [
     {
-        id: 1,
+        id: "11111111-2222-3333-4444-555555555555",
         user: "hassaan",
         date: "2025-02-18T14:30:00Z",
         flair: "Question",

@@ -29,7 +29,7 @@ export default function Login()
         // Store the token in localStorage
         sessionStorage.setItem('token', response.data.token);
         sessionStorage.setItem('user', JSON.stringify(response.data.user));
-        sessionStorage.setItem('user_id', response.data.user_id);
+        sessionStorage.setItem('user_id', response.data.user.id);
         
         // Redirect to dashboard or home page
         navigate('/profile');

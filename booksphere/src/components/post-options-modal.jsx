@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef } from "react";
-import { savePost } from "../api/savedPostsApi"; // << Import the API function here
+import axios from "axios"; // ✅ Directly import axios here
 
 export default function PostOptionsModal({ isOpen, closeModal, postId }) {
     const modalRef = useRef(null);
@@ -25,12 +25,25 @@ export default function PostOptionsModal({ isOpen, closeModal, postId }) {
 
     const handleSave = async () => {
         try {
-            const userId = localStorage.getItem('user_id'); // Example: you can get the logged-in user's ID from localStorage or context
-            if (!userId) {
+            const token = sessionStorage.getItem("token"); // ✅ Match storage
+            const userId = sessionStorage.getItem("user_id"); // ✅
+    
+            if (!userId || !token) {
                 alert("Please login first!");
                 return;
             }
-            await savePost(userId, postId);
+    
+            await axios.post(
+                "http://localhost:5001/api/auth/save-post",
+                { user_id: userId, post_id: postId }, // ✅ snake_case to match backend
+                {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
+              );
+              
+    
             alert("Post saved successfully!");
             closeModal(false);
         } catch (error) {
@@ -38,6 +51,7 @@ export default function PostOptionsModal({ isOpen, closeModal, postId }) {
             alert("Failed to save post.");
         }
     };
+    
 
     return (
         <div
