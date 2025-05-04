@@ -17,7 +17,7 @@ export default function Homepage()
                 </div>
 
                 <div className='col-span-2 h-full overflow-y-auto border-1 px-[3vw] py-[4vh] text-2xl border-[var(--bordercolor)]'>
-                    <HomeFeed/>
+                    <HomeFeed feedType={"home"}/>
                 </div>
 
                 <div className='col-span-1 border-1 px-[1.5vw] py-[3vh] h-full overflow-y-auto border-[var(--bordercolor)]'>

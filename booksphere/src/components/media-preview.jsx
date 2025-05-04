@@ -14,6 +14,11 @@ export default function MediaPreview({ media_list }) {
     }
 
     useEffect(() => {
+
+        const getMediaFiles = async () => {
+            
+        }
+
         const img = new Image();
         img.src = media_list[currentMediaIndex];
         img.onload = () => {
