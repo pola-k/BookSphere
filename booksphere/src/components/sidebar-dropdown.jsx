@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function Sidebar_Dropdown() {
@@ -24,38 +25,49 @@ export default function Sidebar_Dropdown() {
                     <ul className="space-y-[2vh] py-[1vh]">
 
                         <li>
-                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                                <img src="./src/images/question.png" alt="" className="h-[2vw]" />
-                                <p className="px-[1vw]">Help</p>
-                            </div>
+                            <Link to="/settings">
+                                <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                                    <img src="/images/question.png" alt="" className="h-[2vw]" />
+                                    <p className="px-[1vw]">Help</p>
+                                </div>
+                            </Link>
+
                         </li>
 
                         <li>
-                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                                <img src="./src/images/info.png" alt="" className="h-[2vw]" />
-                                <p className="px-[1vw]">About Booksphere</p>
-                            </div>
+                            <Link to="/settings">
+                                <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                                    <img src="/images/info.png" alt="" className="h-[2vw]" />
+                                    <p className="px-[1vw]">About Booksphere</p>
+                                </div>
+                            </Link>
                         </li>
 
                         <li>
-                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                                <img src="./src/images/handshake.png" alt="" className="h-[2vw]" />
-                                <p className="px-[1vw]">User Agreement</p>
-                            </div>
+                            <Link to="/settings">
+                                <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                                    <img src="/images/handshake.png" alt="" className="h-[2vw]" />
+                                    <p className="px-[1vw]">User Agreement</p>
+                                </div>
+                            </Link>
                         </li>
 
                         <li>
-                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                                <img src="./src/images/privacy-policy.png" alt="" className="h-[2vw]" />
-                                <p className="px-[1vw]">Privacy Policy</p>
-                            </div>
+                            <Link to="/settings">
+                                <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                                    <img src="/images/privacy-policy.png" alt="" className="h-[2vw]" />
+                                    <p className="px-[1vw]">Privacy Policy</p>
+                                </div>
+                            </Link>
                         </li>
 
                         <li>
-                            <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                                <img src="./src/images/law.png" alt="" className="h-[2vw]" />
-                                <p className="px-[1vw]">Rules</p>
-                            </div>
+                            <Link to="/settings">
+                                <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                                    <img src="/images/law.png" alt="" className="h-[2vw]" />
+                                    <p className="px-[1vw]">Rules</p>
+                                </div>
+                            </Link>
                         </li>
                     </ul>
                 </div>

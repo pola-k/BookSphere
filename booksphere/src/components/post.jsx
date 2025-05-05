@@ -81,7 +81,7 @@ export default function Post({ post, feedType }) {
 
                     {/* Options */}
                     <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
-                        <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
+                        <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
 
                         <PostOptionsModal isOpen={isOptionsModal} closeModal={ToggleOptionsModal} feedType={feedType} postID={post.id} />
 

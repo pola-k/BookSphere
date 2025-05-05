@@ -1,19 +1,15 @@
 import Post from "./post"
-import {posts} from "../../posts_data"  // dummy data
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Loading from "./Loading/Loading.jsx";
 
-export default function HomeFeed({ feedType }){
+export default function HomeFeed({ feedType }) {
 
-    // Get posts from api call instead of dummy data
-    // implement pagination
-    // figure out useEffect()
-
-    // may need to do these using useEffect()
     const [page, setPage] = useState(1);
     const [EOP, setEOP] = useState(false);
     const [limit, setLimit] = useState(10);
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(true);
 
     const [posts, setPosts] = useState([]);
 
@@ -28,8 +24,8 @@ export default function HomeFeed({ feedType }){
             };
 
             try {
-                const response = await axios.get('http://localhost:5001/api/auth/get-posts', 
-                    {   
+                const response = await axios.get('http://localhost:5001/api/auth/get-posts',
+                    {
                         params: payload,
                         withCredentials: true,
                     }
@@ -41,9 +37,12 @@ export default function HomeFeed({ feedType }){
                     const updated_posts = [...posts, ...posts_list]
                     setPosts(updated_posts);
                 }
-                
+
             } catch (error) {
                 setMessage(error.response?.data?.message || 'Error fetching posts...');
+            } 
+            finally {
+                setLoading(false);
             }
 
         };
@@ -56,13 +55,13 @@ export default function HomeFeed({ feedType }){
 
     }, [page])
 
-    function renderPosts(posts){
-       
+    function renderPosts(posts) {
+
         if (posts) {
             return (
                 <div className="flex flex-col gap-[5vh]">
                     {posts.map((postObject) => (
-                        <Post key={postObject.id} post={postObject} feedType={feedType}/> 
+                        <Post key={postObject.id} post={postObject} feedType={feedType} />
                         // Maybe add showoptions{true/false later on depending on if user is signed in or not}
                     ))}
                 </div>
@@ -70,13 +69,19 @@ export default function HomeFeed({ feedType }){
 
         } else {
             return <div>No Posts Available</div>;
-        } 
+        }
+    }
+
+    if (loading) {
+        return (
+            <Loading />
+        )
     }
 
     return (
 
         <div>
-            {renderPosts(posts)}
+            {posts.length > 0 ? renderPosts(posts) : message}
         </div>
     )
 }

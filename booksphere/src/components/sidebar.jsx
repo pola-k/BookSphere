@@ -1,4 +1,5 @@
 import Sidebar_Dropdown from "./sidebar-dropdown"
+import { Link } from "react-router-dom"
 
 export default function Sidebar() {
 
@@ -10,30 +11,40 @@ export default function Sidebar() {
 
                 <div className="flex flex-col justify-start gap-[2vh] text-[1.15vw] font-bold">
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/home.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Home</p>
-                    </div>
+                    <Link to="/">
+                        <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                            <img src="/images/home.png" alt="" className="h-[2.5vw]" />
+                            <p className="px-[1vw]">Home</p>
+                        </div>
+                    </Link>
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/books.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">My List</p>
-                    </div>
+                    <Link to="/list">
+                        <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                            <img src="/images/books.png" alt="" className="h-[2.5vw]" />
+                            <p className="px-[1vw]">My List</p>
+                        </div>
+                    </Link>
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/encyclopedia.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Encyclopedia</p>
-                    </div>
+                    <Link to="/explore">
+                        <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                            <img src="/images/encyclopedia.png" alt="" className="h-[2.5vw]" />
+                            <p className="px-[1vw]">Explore</p>
+                        </div>
+                    </Link>
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/bookmark.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Saved</p>
-                    </div>
+                    <Link to="/saved">
+                        <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                            <img src="/images/bookmark.png" alt="" className="h-[2.5vw]" />
+                            <p className="px-[1vw]">Saved</p>
+                        </div>
+                    </Link>
 
-                    <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-                        <img src="./src/images/sparkle.png" alt="" className="h-[2.5vw]" />
-                        <p className="px-[1vw]">Summarizer</p>
-                    </div>
+                    <Link to="/summarizer">
+                        <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
+                            <img src="/images/sparkle.png" alt="" className="h-[2.5vw]" />
+                            <p className="px-[1vw]">Summarizer</p>
+                        </div>
+                    </Link>
 
                 </div>
 
