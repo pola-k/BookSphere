@@ -5,12 +5,19 @@ import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
 import PostOptionsModal from "./post-options-modal";
+import axios from "axios";
 
 export default function Post({ post, feedType }) {
 
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(post.liked);
+    const [numLikes, setNumLikes] = useState(post.likes_count);// add post.likes here**********
     const [copied, setCopied] = useState(false);
     const [isOptionsModal, ToggleOptionsModal] = useState(false)
+    const [message, setMessage] = useState("")
+
+    const user = sessionStorage.getItem("user")
+    const parsedUser = JSON.parse(user);
+    const userId = parsedUser.id
 
     function formatDate(date) {
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone
@@ -28,6 +35,35 @@ export default function Post({ post, feedType }) {
         });
     };
 
+    const togglePostLike = async () => {
+        
+        try {
+            console.log("inside try block")
+            const payload = {
+                user_id: userId,
+                post_id: post.id,
+            }
+
+            const response = await axios.put('http://localhost:5001/api/auth/toggle-post-like', payload,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log("after api call", response)
+
+            const updated_like = !liked
+            setLiked(updated_like);
+
+            if (updated_like)
+                setNumLikes(numLikes + 1);
+            else
+                setNumLikes(numLikes - 1);
+            
+        } catch (error) {
+            setMessage(err.response?.data?.message || "Post's like could not be toggled");
+        }
+    };
+
     return (
 
         <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
@@ -38,8 +74,7 @@ export default function Post({ post, feedType }) {
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
 
                     <div className="flex gap-[0.25vw] items-center">
-                        {/* <p>{post.user}</p> */}
-                        <p>username</p>
+                        <p>{post.username}</p>
                         <Dot/>
                         <p>{formatDate(post.date_created)}</p>
                     </div>
@@ -86,7 +121,7 @@ export default function Post({ post, feedType }) {
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
 
                     {/* Like */}
-                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]" onClick={() => setLiked(!liked)}>
+                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]" onClick={togglePostLike}>
 
                         <svg
                             viewBox="0 0 24 24"
@@ -102,7 +137,7 @@ export default function Post({ post, feedType }) {
                             />
                         </svg>
 
-                        {post.likes}
+                        {numLikes}
 
                     </div>
 
