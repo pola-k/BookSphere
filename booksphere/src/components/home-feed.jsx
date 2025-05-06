@@ -37,6 +37,7 @@ export default function HomeFeed({ feedType }) {
                     const updated_posts = [...posts, ...posts_list]
                     setPosts(updated_posts);
                 }
+                // increment in page no.
 
             } catch (error) {
                 setMessage(error.response?.data?.message || 'Error fetching posts...');

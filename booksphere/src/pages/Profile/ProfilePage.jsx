@@ -22,29 +22,26 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = sessionStorage.getItem("user")
-        const parsedUser = JSON.parse(user);
-        const userId = parsedUser.id
+        const userId = sessionStorage.getItem("user_id");
         if (!userId) {
           console.error("No user_id found in sessionStorage");
           return;
         }
 
 
-        const response = await axios.get(`http://localhost:5001/api/auth/profile`, {
-          params: {
-            id: userId,
-          },
-          withCredentials: true // Required for HTTP-only cookies
-        });
+        const response = await axios.get(`http://localhost:5001/api/auth/profile/${userId}`,
+          {
+            withCredentials: true // Required for HTTP-only cookies
+          }
+        );
 
         console.log(response);
 
         setProfileData({
-          username: response.data.user.username || 'Anonymous',
-          fullName: response.data.user.name || 'No Name',
-          description: response.data.user.bio || 'No Bio',
-          imageUrl: response.data.image || ProfilePic
+          username: response.data.username || 'Anonymous',
+          fullName: response.data.fullName || 'No Name',
+          description: response.data.description || 'No Bio',
+          imageUrl: response.data.imageUrl || ProfilePic
         });
       } catch (error) {
         console.log("Failed to fetch user data:", error);

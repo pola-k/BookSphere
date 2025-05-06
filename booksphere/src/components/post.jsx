@@ -10,14 +10,12 @@ import axios from "axios";
 export default function Post({ post, feedType }) {
 
     const [liked, setLiked] = useState(post.liked);
-    const [numLikes, setNumLikes] = useState(post.likes_count);// add post.likes here**********
+    const [numLikes, setNumLikes] = useState(post.likes_count);
     const [copied, setCopied] = useState(false);
     const [isOptionsModal, ToggleOptionsModal] = useState(false)
     const [message, setMessage] = useState("")
 
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
+    const userId = sessionStorage.getItem("user_id");
 
     function formatDate(date) {
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Get user's time zone

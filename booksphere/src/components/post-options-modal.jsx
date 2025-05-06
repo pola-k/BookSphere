@@ -5,12 +5,8 @@ import axios from "axios";
 // Render Only Save & Delete for Self Posts
 export default function PostOptionsModal({ isOpen, closeModal, feedType, postID }) {
 
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
-
+    const userId = sessionStorage.getItem("user_id");
     const [message, setMessage] = useState("");
-
     const modalRef = useRef(null);
 
     useEffect(() => {

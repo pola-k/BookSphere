@@ -8,9 +8,7 @@ import Loading from "../../components/Loading/Loading.jsx";
 
 export default function List() {
 
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
+    const userId = sessionStorage.getItem("user_id");
     const [bookList, setBookList] = useState([])
     const [loading, setLoading] = useState(true);
 

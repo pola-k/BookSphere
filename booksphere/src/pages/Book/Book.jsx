@@ -11,9 +11,7 @@ export default function Book()
 {
     const { id } = useParams();
     const [loading, setLoading] = useState(true);
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
+    const userId = sessionStorage.getItem("user_id");
     const [added, setAdded] = useState(false)
     const [book, setBook] = useState(null)
     const [reviews, setReviews] = useState([])
