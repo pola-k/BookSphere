@@ -12,13 +12,15 @@ export default function HomeFeed({ feedType }) {
     const [loading, setLoading] = useState(true);
 
     const [posts, setPosts] = useState([]);
+    const userId = sessionStorage.getItem("user_id");
 
     useEffect(() => {
 
         const getPosts = async () => {
 
             const payload = {
-                type: "home",
+                user_id: userId,
+                type: feedType,
                 page: page,
                 limit: limit,
             };
@@ -37,6 +39,9 @@ export default function HomeFeed({ feedType }) {
                     const updated_posts = [...posts, ...posts_list]
                     setPosts(updated_posts);
                 }
+
+                else
+                    setMessage("No Posts Yet...")
                 // increment in page no.
 
             } catch (error) {
@@ -58,7 +63,7 @@ export default function HomeFeed({ feedType }) {
 
     function renderPosts(posts) {
 
-        if (posts) {
+        if (posts.length > 0) {
             return (
                 <div className="flex flex-col gap-[5vh]">
                     {posts.map((postObject) => (
@@ -69,7 +74,7 @@ export default function HomeFeed({ feedType }) {
             );
 
         } else {
-            return <div>No Posts Available</div>;
+            return <div className="flex items-center justify-center">No Posts Available</div>;
         }
     }
 
@@ -82,7 +87,7 @@ export default function HomeFeed({ feedType }) {
     return (
 
         <div>
-            {posts.length > 0 ? renderPosts(posts) : message}
+            {renderPosts(posts)}
         </div>
     )
 }
