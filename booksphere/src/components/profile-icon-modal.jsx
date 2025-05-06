@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom"
+import { Link,useNavigate  } from "react-router-dom"
 import { useRef, useEffect } from "react";
-
+import axios from "axios";
 // Render Login/Sgnup Buttons if not logged in
 export default function ProfileIconModal({ isOpen, closeModal }) {
 
-    const modalRef = useRef(null);
+  const modalRef = useRef(null);
+  const navigate = useNavigate();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -22,6 +23,24 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
         };
     }, [isOpen, closeModal]);
 
+
+const handleLogout = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    try {
+
+      await axios.post(
+        "http://localhost:5001/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
+      // Clear client-side session
+      sessionStorage.removeItem("user_id");
+      // Redirect to login or home
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
     if (!isOpen) return null
 
     return (
@@ -57,8 +76,8 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
             </Link>
 
             {/* Send API Call for Logging Out || href will be replaced with onclick, I guess */}
-            <Link to="http://localhost:5173/list" className="w-full">
-                <div href="/settings" className="rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
+              <button type="button"  onClick={handleLogout} >
+                    <div  className="w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
 
                     <img
                         src="/images/logout-icon.png"
@@ -69,7 +88,7 @@ export default function ProfileIconModal({ isOpen, closeModal }) {
 
                     Logout
                 </div>
-            </Link>
+              </button>
 
         </div>
     )

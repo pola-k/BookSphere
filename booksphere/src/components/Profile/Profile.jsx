@@ -22,22 +22,7 @@ function Profile({ username, fullName, description,  imageUrl = 'https://placeho
         </div>
       </div>
 
-      {/* Profile Options Row */}
-      <div className="flex justify-around  border-[var(--bgcolorlight)]">
-        <div className="text-center">
-          <span className="text-[1.75vw] font-bold text-[var(--bgcolorlight)]">1.2k</span>
-          <span className="block text-[1vw] text-[var(--bgcolorlight)]">Posts</span>
-        </div>
-        <div className="text-center">
-          <span className="text-[1.75vw] font-bold text-[var(--bgcolorlight)]">5.6k</span>
-          <span className="block text-[1vw] text-[var(--bgcolorlight)]">Followers</span>
-        </div>
-        <div className="text-center">
-          <span className="text-[1.75vw] font-bold text-[var(--bgcolorlight)]">789</span>
-          <span className="block text-[1vw] text-[var(--bgcolorlight)]">Following</span>
-        </div>
-      </div>
-    </div>
+     </div>
   );
 }
 
