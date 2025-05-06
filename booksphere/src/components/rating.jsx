@@ -6,9 +6,7 @@ export default function Rating({ rating, rateable, book_id, refetch }) {
     const stars = Array(5).fill(0);
     const [selectedRating, setSelectedRating] = useState(rating);
     const [hoverValue, setHoverValue] = useState(null);
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
+    const userId = sessionStorage.getItem("user_id");
 
     useEffect(() => {
         if(rateable)

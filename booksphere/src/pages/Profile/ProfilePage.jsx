@@ -17,23 +17,30 @@ export default function ProfilePage() {
   });
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userId = sessionStorage.getItem('user_id');
+        const userId = sessionStorage.getItem("user_id");
         if (!userId) {
           console.error("No user_id found in sessionStorage");
           return;
         }
 
 
-        const response = await axios.get(`http://localhost:5001/api/auth/profile/${userId}`, { withCredentials: true // Required for HTTP-only cookies
-        });
+        const response = await axios.get(`http://localhost:5001/api/auth/profile/${userId}`,
+          {
+            withCredentials: true // Required for HTTP-only cookies
+          }
+        );
+
+        console.log(response);
 
         setProfileData({
           username: response.data.username || 'Anonymous',
           fullName: response.data.fullName || 'No Name',
-          description: response.data.description || '',
+          description: response.data.description || 'No Bio',
           imageUrl: response.data.imageUrl || ProfilePic
         });
       } catch (error) {
@@ -62,27 +69,27 @@ export default function ProfilePage() {
 
   return (
     <div className='flex flex-col grid grid-rows-[8%_92%] h-screen'>
-      <Navbar/>
+      <Navbar />
 
       <div className='grid grid-cols-[20%_20%_35%_25%] border-1 border-[var(--bordercolor)]'>
         <div className='col-span-1 overflow-y-auto'>
-          <Sidebar/>
+          <Sidebar />
         </div>
 
         <div className='col-span-2 h-full overflow-y-auto border-1 px-[3vw] py-[4vh] text-2xl border-[var(--bordercolor)]'>
-          <div className="flex flex-col gap-8 md:gap-10 lg:gap-12"> 
+          <div className="flex flex-col gap-8 md:gap-10 lg:gap-12">
             <Profile
               username={profileData.username}
               fullName={profileData.fullName}
               description={profileData.description}
               imageUrl={profileData.imageUrl}
             />
-            <HomeFeed feedType={"user"}/>
+            <HomeFeed feedType={"user"} />
           </div>
         </div>
 
         <div className='col-span-1 border-1 px-[1.5vw] py-[3vh] h-full overflow-y-auto border-[var(--bordercolor)]'>
-          <RecommendationsFeed/>
+          <RecommendationsFeed />
         </div>
       </div>
     </div>

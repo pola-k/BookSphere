@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Profile({ username, fullName, description,  imageUrl = 'https://placehold.co/600x400/png ' }) {
+function Profile({ username, fullName, description,  imageUrl = 'https://placehold.co/600x400/png' }) {
   return (
-    <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)] p-[1.5vw] min-h-[40vh] relative">
+    <div className="flex flex-col gap-[4vh] rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)] p-[1.5vw] min-h-[15vh] relative">
       {/* Profile Header */}
-      <div className="flex items-center gap-[1vw]">
+      <div className="flex pl-[1vw] items-center gap-[1.5vw]">
         {/* Profile Picture */}
         <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--bgcolorlight)]">
           <img
@@ -23,7 +23,7 @@ function Profile({ username, fullName, description,  imageUrl = 'https://placeho
       </div>
 
       {/* Profile Options Row */}
-      <div className="absolute bottom-3 left-3 right-3  mt-[2vh] flex justify-around  border-[var(--bgcolorlight)] pt-[2vh] ">
+      <div className="flex justify-around  border-[var(--bgcolorlight)]">
         <div className="text-center">
           <span className="text-[1.75vw] font-bold text-[var(--bgcolorlight)]">1.2k</span>
           <span className="block text-[1vw] text-[var(--bgcolorlight)]">Posts</span>

@@ -2,11 +2,10 @@ import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-export default function PostOptionsModal({ isOpen, closeModal, feedType, postID, isSaved }) {
-    const user = sessionStorage.getItem("user");
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser?.id || sessionStorage.getItem("user_id");
+// Render Only Save & Delete for Self Posts
+export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,isSaved }) {
 
+    const userId = sessionStorage.getItem("user_id");
     const [message, setMessage] = useState("");
     const modalRef = useRef(null);
 
@@ -175,3 +174,8 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
         </div>
     );
 }
+
+
+
+
+

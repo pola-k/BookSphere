@@ -5,11 +5,17 @@ import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
 import MediaPreview from "./media-preview";
 import PostOptionsModal from "./post-options-modal";
+import axios from "axios";
 
 export default function Post({ post, feedType, isSaved }) {
-    const [liked, setLiked] = useState(false);
+ 
+    const [liked, setLiked] = useState(post.liked);
+    const [numLikes, setNumLikes] = useState(post.likes_count);
     const [copied, setCopied] = useState(false);
-    const [isOptionsModal, ToggleOptionsModal] = useState(false);
+    const [isOptionsModal, ToggleOptionsModal] = useState(false)
+    const [message, setMessage] = useState("")
+
+    const userId = sessionStorage.getItem("user_id");
 
     function formatDate(date) {
         const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -26,6 +32,35 @@ export default function Post({ post, feedType, isSaved }) {
         });
     };
 
+    const togglePostLike = async () => {
+        
+        try {
+            console.log("inside try block")
+            const payload = {
+                user_id: userId,
+                post_id: post.id,
+            }
+
+            const response = await axios.put('http://localhost:5001/api/auth/toggle-post-like', payload,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log("after api call", response)
+
+            const updated_like = !liked
+            setLiked(updated_like);
+
+            if (updated_like)
+                setNumLikes(numLikes + 1);
+            else
+                setNumLikes(numLikes - 1);
+            
+        } catch (error) {
+            setMessage(err.response?.data?.message || "Post's like could not be toggled");
+        }
+    };
+
     return (
         <div className="rounded-2xl text-[var(--bgcolorlight)] bg-[var(--postcolor)]">
             <div className="flex flex-col gap-[1vh] items-start w-full rounded-2xl hover:cursor-pointer px-[1.5vw] py-[2vh] hover:bg-[var(--posthovercolor)]">
@@ -33,24 +68,23 @@ export default function Post({ post, feedType, isSaved }) {
                 {/* Username + Timestamp + Options */}
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
                     <div className="flex gap-[0.25vw] items-center">
-                        <p>username</p>
-                        <Dot />
+                        <p>{post.username}</p>
+                        <Dot/>
                         <p>{formatDate(post.date_created)}</p>
                     </div>
 
                     {/* Options */}
-                    <div
-                        className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]"
-                        onClick={() => ToggleOptionsModal(!isOptionsModal)}
-                    >
-                        <img src="./src/images/dots.png" alt="" className="h-[1.25vw]" />
+                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
+                        <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
+
                         <PostOptionsModal
-                            isOpen={isOptionsModal}
+                          isOpen={isOptionsModal}
                             closeModal={ToggleOptionsModal}
-                            feedType={feedType}
-                            postID={post.id}
-                            isSaved={isSaved} // 👈 p
-                        />
+                             feedType={feedType}
+                             postID={post.id}
+                             isSaved={isSaved}
+/>  
+
                     </div>
                 </div>
 
@@ -76,10 +110,8 @@ export default function Post({ post, feedType, isSaved }) {
                 {/* Icons */}
                 <div className="flex items-center justify-start gap-[1.15vw] pt-[1vh]">
                     {/* Like */}
-                    <div
-                        className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]"
-                        onClick={() => setLiked(!liked)}
-                    >
+                    <div className="flex items-center gap-[0.4vw] p-[0.60vw] rounded-3xl text-[1vw] font-bold transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]" onClick={togglePostLike}>
+
                         <svg
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +125,9 @@ export default function Post({ post, feedType, isSaved }) {
                                 d="M20.28,4.74a5.82,5.82,0,0,0-8.28,0,5.82,5.82,0,0,0-8.28,0,5.94,5.94,0,0,0,0,8.34l7.57,7.62a1,1,0,0,0,1.42,0l7.57-7.62a5.91,5.91,0,0,0,0-8.34Z"
                             />
                         </svg>
-                        {post.likes}
+
+                        {numLikes}
+
                     </div>
 
                     {/* Comments */}

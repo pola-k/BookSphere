@@ -27,9 +27,9 @@ export default function Login()
       );
         console.log('Response:', response.data); 
         // Store the token in localStorage
-        sessionStorage.setItem('token', response.data.token);
-        sessionStorage.setItem('user', JSON.stringify(response.data.user));
-        sessionStorage.setItem('user_id', response.data.user.id);
+        // sessionStorage.setItem('token', response.data.token);
+        // sessionStorage.setItem('user', JSON.stringify(response.data.user));
+        sessionStorage.setItem('user_id', response.data.user_id);
         
         // Redirect to dashboard or home page
         navigate('/profile');

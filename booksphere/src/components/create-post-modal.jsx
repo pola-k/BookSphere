@@ -4,9 +4,7 @@ import { useState } from "react"
 
 export default function CreatePostModal() {
 
-    const user = sessionStorage.getItem("user")
-    const parsedUser = JSON.parse(user);
-    const userId = parsedUser.id
+    const userId = sessionStorage.getItem("user_id");
 
     const [activeTab, setActiveTab] = useState("text")
     const [title, setTitle] = useState("")
