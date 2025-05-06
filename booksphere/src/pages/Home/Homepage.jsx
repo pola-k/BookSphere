@@ -16,7 +16,7 @@ export default function Homepage()
                     <Sidebar/>
                 </div>
 
-                <div className='col-span-2 h-full overflow-y-auto border-1 px-[3vw] py-[4vh] text-2xl border-[var(--bordercolor)]'>
+                <div className='col-span-2 bg-white-300 h-full overflow-y-auto border-1 px-[3vw] py-[4vh] text-2xl border-[var(--bordercolor)]'>
                     <HomeFeed feedType={"home"}/>
                 </div>
 

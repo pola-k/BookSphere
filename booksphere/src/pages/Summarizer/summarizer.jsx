@@ -1,54 +1,124 @@
 import { useState } from "react";
 import Navbar from "../../components/navbar";
-import image1 from "/images/the-old-man-and-the-sea.jpg";
-import image2 from "/images/to-kill-a-mockingbird.png";
+
 export default function Summarizer() {
-    const [title, setTitle] = useState("");
+    const [fileName, setFileName] = useState("");
+    const [fileContent, setFileContent] = useState("");
     const [summary, setSummary] = useState("");
-    const [image, setImage] = useState("");
-    const bookImages = {
-        "The Old Man and The Sea": image1,
-        "To Kill a Mockingbird": image2,
-        
+
+    const handleFileUpload = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setFileName(file.name);
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const text = event.target?.result;
+            setFileContent(text);
+            setSummary(""); // clear old summary
+        };
+
+        if (file.type === "text/plain") {
+            reader.readAsText(file);
+        } else if (file.type === "application/pdf") {
+            setSummary("📄 PDF support coming soon. Please upload a .txt file for now.");
+        } else {
+            setSummary("⚠️ Unsupported file type. Please upload a .txt or .pdf file.");
+        }
     };
+
     const handleSummarize = () => {
-        if (!title) return;
-        setSummary(` This is a brief summary of the book.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua `);
-        setImage(bookImages[title] || "https://via.placeholder.com/150");
+        if (!fileContent.trim()) return;
+        const short = fileContent.slice(0, 300);
+        setSummary(`✨ Summary:\n${short}...\n\n(This is a simulated preview.)`);
     };
 
     return (
-        <div className="h-screen w-full bg-[var(--bgsumarizerpage)]">
-             <Navbar />
-        <div className="bg-[var(--bgsumarizerpage)]  flex flex-col items-center p-6">
-           
-            <h1 className="text-4xl font-bold mt-10">Summarize Books instantly!</h1>
-            <p className="text-grey-300 text-xs mt-5">Get quick Summaries for over a million books</p>
-            
-            <div className="bg-white shadow-lg rounded-lg p-6 mt-6 w-full max-w-xl h-full flex flex-col items-center justify-center">
-            {image && <img src={image} alt="Book Cover" className="w-40 h-60 mb-4 rounded-lg shadow-md" />}
-            {title && <h2 className="text-xl font-semibold text-gray-800 mt-2">{title}</h2>}
-            <p className={`text-lg text-gray-700 mb-4 text-center h-full flex items-center justify-center ${summary ? "" : "text-gray-400"}`}>
-    {summary || "Your summary will appear here..."}
-</p>
-            </div>
-            
-            <input 
-                type="text" 
-                placeholder="Enter book title..." 
-                value={title} 
-                onChange={(e) => setTitle(e.target.value)} 
-                className="w-full max-w-lg p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--bgcolordark)] mt-4" 
-            />
-            <button 
-                onClick={handleSummarize} 
-                className="mt-4 bg-[var(--bgcolordark)] text-white px-6 py-2 rounded-lg cursor-pointer"
-            >
-                Summarize
-            </button>
-        </div>
-        <div className="bg-[var(--bgcolordark)] w-full h-34"></div>
+        <div
+            className="min-h-screen text-gray-900 font-sans bg-gradient-to-br from-[var(--bgsumarizerpage)] to-[#f0f2f5]"
+            style={{ animation: "fadeInPage 0.7s ease-in-out" }}
+        >
+            {/* Inline Animation Styles */}
+            <style>{`
+                @keyframes fadeInPage {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+                @keyframes smoothPop {
+                    from { opacity: 0; transform: scale(0.97); }
+                    to { opacity: 1; transform: scale(1); }
+                }
+                .pop-in {
+                    animation: smoothPop 0.4s ease forwards;
+                }
+            `}</style>
 
+            <Navbar />
+
+            {/* Header */}
+            <header className="w-full py-20 px-6 text-center">
+                <h1 className="text-6xl font-extrabold tracking-tight text-gray-900 mb-4 pop-in">
+                    📘 AI Book Summarizer
+                </h1>
+                <p className="text-gray-500 text-lg max-w-xl mx-auto pop-in">
+                    Upload your .txt or .pdf book and instantly generate a summary that saves time.
+                </p>
+            </header>
+
+            {/* Main */}
+            <main className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-start pb-20">
+                {/* Upload Panel */}
+                <section className="bg-white/60 backdrop-blur-md p-10 rounded-3xl shadow-lg border border-gray-200 transition-all hover:shadow-2xl pop-in">
+                    <h2 className="text-2xl font-bold mb-6">📂 Upload File</h2>
+
+                    <label className="block border-2 border-dashed border-gray-300 hover:border-[var(--bgcolordark)] p-6 rounded-2xl cursor-pointer transition duration-200 text-center">
+                        <input
+                            type="file"
+                            accept=".txt,application/pdf"
+                            onChange={handleFileUpload}
+                            className="hidden"
+                        />
+                        <p className="text-gray-600 font-medium">
+                            Click or drag a <span className="text-[var(--bgcolordark)] font-semibold">.txt</span> or <span className="text-[var(--bgcolordark)] font-semibold">.pdf</span> file
+                        </p>
+                        <p className="text-sm text-gray-400 mt-1">Up to 5MB supported</p>
+                        {fileName && (
+                            <p className="mt-4 text-sm text-green-600 font-medium animate-fade-in">
+                                ✅ {fileName}
+                            </p>
+                        )}
+                    </label>
+
+                    {fileName && (
+                        <button
+                            onClick={handleSummarize}
+                            className="mt-6 w-full py-3 bg-[var(--bgcolordark)] text-white rounded-xl font-semibold shadow-md hover:shadow-lg hover:opacity-90 transition"
+                        >
+                            ✨ Summarize File
+                        </button>
+                    )}
+                </section>
+
+                {/* Output Panel */}
+                <section className="bg-white p-10 rounded-3xl shadow-lg border border-gray-200 w-full flex flex-col items-start pop-in">
+                    <h3 className="text-2xl font-semibold mb-4 text-[var(--bgcolordark)]">
+                        {fileName || "📄 No File Selected"}
+                    </h3>
+                    <div className="bg-gray-50 p-5 rounded-xl border border-gray-100 min-h-[220px] w-full overflow-y-auto whitespace-pre-wrap text-[15px] leading-relaxed text-gray-700 transition-all">
+                        {summary || (
+                            <span className="text-gray-400 italic">
+                                Upload a file and click summarize to generate your summary.
+                            </span>
+                        )}
+                    </div>
+                </section>
+            </main>
+
+            {/* Footer */}
+            <footer className="mt-10 w-full py-6 text-center text-sm text-white bg-[var(--bgcolordark)] rounded-t-3xl shadow-inner tracking-wide">
+                BookSphere © 2025 — Crafted with precision 📚✨
+            </footer>
         </div>
     );
 }
