@@ -34,9 +34,9 @@ export default function Sidebar() {
                     </Link>
 
                     <Link to="/saved" className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">
-    <img src="./src/images/bookmark.png" alt="" className="h-[2.5vw]" />
-    <p className="px-[1vw]">Saved</p>
-</Link>
+                        <img src="/images/bookmark.png" alt="" className="h-[2.5vw]" />
+                        <p className="px-[1vw]">Saved</p>
+                    </Link>
 
                     <Link to="/summarizer">
                         <div className="flex items-center rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)]">

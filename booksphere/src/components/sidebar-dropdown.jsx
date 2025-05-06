@@ -8,11 +8,11 @@ export default function Sidebar_Dropdown() {
     const toggleDropdown = () => setIsOpen(!isOpen);
 
     return (
-        <div className="flex flex-col border-[var(--bordercolor)]">
+        <div className="flex flex-col border-[var(--bordercolor)] ">
             {/* Dropdown Button */}
             <button
                 onClick={toggleDropdown}
-                className="flex items-center justify-between gap-[2vh] text-[1.25vw] rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)] transition w-full"
+                className="flex items-center justify-between gap-[2vh] text-[1.25vw] rounded-2xl px-[1vw] py-[0.75vh] hover:bg-[var(--accentcolor)] transition w-full cursor-pointer"
             >
                 RESOURCES
                 {isOpen ? <ChevronUp className="text-2xl" /> : <ChevronDown className="text-2xl" />}

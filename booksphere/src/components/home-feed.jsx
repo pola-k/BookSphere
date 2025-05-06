@@ -67,7 +67,7 @@ export default function HomeFeed({ feedType }) {
             return (
                 <div className="flex flex-col gap-[5vh]">
                     {posts.map((postObject) => (
-                        <Post key={postObject.id} post={postObject} feedType={feedType} />
+                        <Post key={postObject.id} post={postObject} feedType={feedType} isSaved={postObject.isSaved}/>
                         // Maybe add showoptions{true/false later on depending on if user is signed in or not}
                     ))}
                 </div>

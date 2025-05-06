@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 // Render Only Save & Delete for Self Posts
-export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,isSaved }) {
+export default function PostOptionsModal({ isOpen, closeModal, feedType, postID, isSaved }) {
 
     const userId = sessionStorage.getItem("user_id");
+    const [saved, setSaved] = useState(isSaved);
     const [message, setMessage] = useState("");
     const modalRef = useRef(null);
 
@@ -29,10 +30,9 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
 
     const handleSave = async () => {
         try {
-            const token = sessionStorage.getItem("token");
             const userId = sessionStorage.getItem("user_id");
 
-            if (!userId || !token) {
+            if (!userId) {
                 alert("Please login first!");
                 return;
             }
@@ -41,13 +41,12 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
                 "http://localhost:5001/api/auth/save-post",
                 { user_id: userId, post_id: postID },
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    withCredentials: true
                 }
             );
 
             alert("Post saved successfully!");
+            setSaved(true);
             closeModal(false);
         } catch (error) {
             console.error("Error saving post:", error);
@@ -57,10 +56,9 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
 
     const handleUnsave = async () => {
         try {
-            const token = sessionStorage.getItem("token");
             const userId = sessionStorage.getItem("user_id");
 
-            if (!userId || !token) {
+            if (!userId) {
                 alert("Please login first!");
                 return;
             }
@@ -69,13 +67,12 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
                 "http://localhost:5001/api/auth/unsave-post",
                 { userId, postId: postID },
                 {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    withCredentials: true
                 }
             );
 
             alert("Post unsaved successfully!");
+            setSaved(false);
             closeModal(false);
         } catch (error) {
             console.error("Error unsaving post:", error);
@@ -105,7 +102,7 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
             onClick={(e) => e.stopPropagation()}
         >
             {/* ✅ Save / Unsave logic */}
-            {isSaved ? (
+            {saved ? (
                 <div
                     onClick={handleUnsave}
                     className="cursor-pointer w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]"
@@ -133,7 +130,7 @@ export default function PostOptionsModal({ isOpen, closeModal, feedType, postID,
                 </div>
             )}
 
-            {feedType === "home" && (
+            {(feedType === "home" || feedType === "saved") && (
                 <>
                     <div className="w-full rounded-lg flex items-center justify-start gap-[0.75vw] px-[0.5vw] py-[0.5vh] hover:bg-[var(--optionshovercolor)]">
                         <img

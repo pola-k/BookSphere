@@ -13,7 +13,7 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 import SettingsPage from "../src/pages/settings/Settings";
 import Summarizer from "./pages/Summarizer/summarizer";
 import ProtectedRoute from "./components/protected_routes";
-import SavedPostsPage from "./pages/savedpages.jsx"; // ✅ correct
+import SavedPostsPage from "./pages/SavedPosts/saved-posts-page";
 export default function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Homepage /> },

@@ -8,7 +8,7 @@ import PostOptionsModal from "./post-options-modal";
 import axios from "axios";
 
 export default function Post({ post, feedType, isSaved }) {
- 
+    
     const [liked, setLiked] = useState(post.liked);
     const [numLikes, setNumLikes] = useState(post.likes_count);
     const [copied, setCopied] = useState(false);
@@ -74,7 +74,7 @@ export default function Post({ post, feedType, isSaved }) {
                     </div>
 
                     {/* Options */}
-                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionsiconhovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
+                    <div className="relative p-[0.30vw] rounded-3xl hover:bg-[var(--optionshovercolor)]" onClick={() => ToggleOptionsModal(!isOptionsModal)}>
                         <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
 
                         <PostOptionsModal

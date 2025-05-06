@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Post from "../components/post"; // adjust import path if needed
+import Post from "./post";
 
-export default function SavedPostsPage() {
+export default function SavedPosts() {
     const [savedPosts, setSavedPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchSavedPosts = async () => {
             try {
-                const token = sessionStorage.getItem("token");
                 const userId = sessionStorage.getItem("user_id");
 
                 const response = await axios.get(
-                    `http://localhost:5001/api/auth/saved-posts?user_id=${userId}`,
+                    `http://localhost:5001/api/auth/get-saved-posts?user_id=${userId}`,
                     {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
+                        params: {user_id: userId},
+                        withCredentials: true
                     }
                 );
 
@@ -35,21 +33,22 @@ export default function SavedPostsPage() {
     if (loading) return <div className="p-8">Loading saved posts...</div>;
 
     return (
-        <div className="p-8">
-            <h1 className="text-3xl font-bold mb-6">Saved Posts</h1>
+        <div className="p-[2vw]">
+            <p className="text-[2vw] text-[var(--headingcolordark)] font-bold pb-[4vh]">Saved Posts</p>
             <div className="flex flex-col gap-8">
                 {savedPosts.length === 0 ? (
                     <p>No saved posts found.</p>
                 ) : (
-                    savedPosts.map((entry) => (
+                    savedPosts.map((post) => (
                         <Post
-                        key={entry.post_id}
-                        post={entry.post}
+                        key={post.id}
+                        post={post}
                         feedType="saved"
-                        isSaved={true} // 👈 pass this
+                        isSaved={post.isSaved}
                       />
                     ))
                 )}
+                {/* <Post key={postObject.id} post={postObject} feedType={feedType} isSaved={postObject.isSaved} */}
             </div>
         </div>
     );
