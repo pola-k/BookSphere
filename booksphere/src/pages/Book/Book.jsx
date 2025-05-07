@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom"
 import { useState, useRef, useEffect } from "react"
 import axios from "axios"
 import Loading from "../../components/Loading/Loading"
+import { formatDistanceToNow } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 export default function Book() 
 {
@@ -17,6 +19,112 @@ export default function Book()
     const [reviews, setReviews] = useState([])
     const reviewBox = useRef(null)
     const [reviewAdded, setReviewAdded] = useState(false)
+    const[notification, setNotification] = useState("")
+    const[user, setUser] = useState(null)
+
+    async function reFetchReviews() {
+        try 
+        {
+            const latestReviews = await axios.get(`http://localhost:5001/api/review/getReview`, {
+                params: {
+                    bookId: book.id
+                }
+            });
+    
+            const simplifiedReviews = latestReviews.data.map(review => ({
+                username: review.User.username,
+                user_img: review.User.image,
+                text: review.text,
+                time: formatDate(review.time)
+            }));
+    
+            setReviews(simplifiedReviews);
+    
+            if (userId !== null) 
+            {
+                const userHasReviewed = latestReviews.data.some(review => review.user_id === userId);
+                if (userHasReviewed) 
+                {
+                    setReviewAdded(true);
+                }
+            }
+        } catch (err) 
+        {
+            console.error("Failed to refetch reviews:", err);
+        }
+    }
+
+    useEffect(() => {
+        if(book !== null)
+        {
+            const interval = setInterval(() => {
+                reFetchBookData(false);
+            }, 5000);
+            return () => clearInterval(interval);
+        }
+    }, [book])
+
+    useEffect(() => {
+        if(book !== null)
+            {
+                const interval =  setInterval(() => {
+                    reFetchReviews();
+                }, 60000);
+                return () => clearInterval(interval);
+            }
+    }, [book])
+
+    useEffect(() => {
+        if(notification !== "")
+        {
+            setTimeout(() => {
+                setNotification("");
+            }, 3000);
+        }
+    },[notification])
+
+    function formatDate(date) 
+    {
+        const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const zonedDate = toZonedTime(date, userTimeZone); 
+        let difference = formatDistanceToNow(zonedDate, { addSuffix: true });
+        difference = difference.replace(/^about\s/, "");
+        return difference;
+    }
+
+    useEffect(() => {
+        if(book !== null)
+        {
+            const interval = setInterval(() => {
+                reFetchBookData();
+            }, 5000);
+            console.log("Refetching book data every 5 seconds")
+            return () => clearInterval(interval);
+        }
+    }, []);
+    
+
+    useEffect(() => {
+        async function fetchUserData() {
+            try
+            {
+                const user = await axios.get(`http://localhost:5001/api/auth/user/getUserDetails`, {
+                    withCredentials: true
+                });
+
+                if(user)
+                {
+                    setUser(user.data);
+                }
+            }
+            catch(err)
+            {
+                console.error("Failed to fetch user data:", err);
+            }
+        }
+        fetchUserData();
+    }, [id]);
+
 
     useEffect(() => {
         async function fetchBookData() {
@@ -25,46 +133,49 @@ export default function Book()
                 const res = await fetch(`http://localhost:5001/api/getbooksdata/id/${id}`);
                 if (!res.ok) throw new Error("Network response was not ok");
                 const data = await res.json();
-                setBook(data);
+                const date = data.publish_date;
+                const rawdate = new Date(date);
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = rawdate.toLocaleDateString('en-US', options);
+                setBook({...data, publish_date: formattedDate});
 
-                const book_status = await axios.get(`http://localhost:5001/api/list/CheckBookStatus`, {
-                params: {
-                    user_id: userId,
-                    book_id: data.id
-                }
-                });
-                if(book_status.data.status === "true")
+                if(userId !== null)
                 {
-                    setAdded(true)
+                    const book_status = await axios.get(`http://localhost:5001/api/list/CheckBookStatus`, {
+                        params: {
+                            user_id: userId,
+                            book_id: data.id
+                        }
+                        });
+                    if(book_status.data.status === "true")
+                    {
+                         setAdded(true)
+                    }
                 }
 
-                const latest_reviews = await axios.get(`http://localhost:5001/api/review/getReview`, {
+                const latestReviews = await axios.get(`http://localhost:5001/api/review/getReview`, {
                     params: {
                         bookId: data.id
                     }
                 });
-                
-                const simplifiedReviews = latest_reviews.data.map(review => ({
+        
+                const simplifiedReviews = latestReviews.data.map(review => ({
                     username: review.User.username,
                     user_img: review.User.image,
                     text: review.text,
-                    time: new Date(review.time).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
-                        hour12: true
-                      })
+                    time: formatDate(review.time)
                 }));
-
-                const user_with_reviews = latest_reviews.data.filter(review => review.user_id === userId);
-                if(user_with_reviews.length > 0)
+                
+                setReviews(simplifiedReviews);
+        
+                if (userId !== null) 
                 {
-                    setReviewAdded(true)
+                    const userHasReviewed = latestReviews.data.some(review => review.user_id === userId);
+                    if (userHasReviewed) 
+                    {
+                        setReviewAdded(true);
+                    }
                 }
-                setReviews(simplifiedReviews)
             } 
             catch (err) 
             {
@@ -76,7 +187,6 @@ export default function Book()
             }
 
         }
-
         fetchBookData();
     }, [id]);
     
@@ -92,7 +202,9 @@ export default function Book()
             <>
                 <div className="error-container">
                     <Navbar/>
-                    <h1>Book not found</h1>
+                    <div className="error-message">
+                        <h1>Book not found</h1>
+                    </div>
                 </div>
             </>
         ) 
@@ -104,6 +216,7 @@ export default function Book()
     
         if (!reviewText.trim() || !userId) 
         {
+            setNotification("Please login to submit a review")
             return;
         }
         
@@ -116,6 +229,8 @@ export default function Book()
                 time: new Date().toISOString()
             });
 
+            setNotification("Review Submitted Successfully")
+
             reviewBox.current.value = "";
         } 
         catch (err) 
@@ -125,34 +240,7 @@ export default function Book()
 
         try
         {
-            const latest_reviews = await axios.get(`http://localhost:5001/api/review/getReview`, {
-                params: {
-                    bookId: book.id
-                }
-            });
-
-            const user_with_reviews = latest_reviews.data.filter(review => review.user_id === userId);
-            if(user_with_reviews.length > 0)
-            {
-                setReviewAdded(true)
-            }
-            
-            const simplifiedReviews = latest_reviews.data.map(review => ({
-                username: review.User.username,
-                user_img: review.User.image,
-                text: review.text,
-                time: new Date(review.time).toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: true
-                  })
-            }));
-
-            setReviews(simplifiedReviews);
+            reFetchReviews();   
         }
         catch(err)
         {
@@ -163,6 +251,11 @@ export default function Book()
 
     async function manageList()
     {
+        if(userId === null)
+        {
+            setNotification("Please login to add books to your list")
+            return;
+        }
         if(added)
         {
             const book_status = await axios.delete(`http://localhost:5001/api/list/removeBookFromList/`, {
@@ -174,6 +267,7 @@ export default function Book()
             if(book_status.data.status === "true")
             {
                 setAdded(false)
+                setNotification("Book removed from your list");
             }
         }
         else
@@ -185,12 +279,14 @@ export default function Book()
             if(book_status.status === 201)
             {
                 setAdded(true)
+                setNotification("Book added to your list");
             }
         }
     }
 
-    async function reFetchBookData() {
-        try {
+    async function reFetchBookData(status = true) {
+        try 
+        {
             const res = await axios.get(`http://localhost:5001/api/rating/getRatingStats`, {
                 params: {
                     book_id: book.id
@@ -198,17 +294,23 @@ export default function Book()
             });
     
             const { averageRating, ratingCount } = res.data;
-    
+            
+            if(status)
+            {
+                setNotification("Rating Updated Successfully")
+            }
+
             setBook(prevBook => ({
                 ...prevBook,
                 averageRating,
                 ratingCount
             }));
-        } catch (err) {
+        } 
+        catch (err) 
+        {
             console.error("Fetch error:", err);
         }
     }
-    
 
     const reviewComponents = reviews.length === 0 ? <p className="no-reviews">No reviews yet.</p> : 
     reviews.map((review, index) => (<Review key={index} review={review}/>))
@@ -217,6 +319,11 @@ export default function Book()
         <>
             <div className="book-container">
                 <Navbar/>
+                {notification && (
+                        <div className="notification-container">
+                            <div className="notification">{notification}</div>
+                        </div>
+                    )}
                   <div className="book-main-container">
                     <div className="book-left-container">
                         <img src={book.image} alt={book.title} />
@@ -232,7 +339,7 @@ export default function Book()
                         <h2>{book.Authors.map((a) => a.name).join(", ")}</h2>
                     </div>
                     <div className="book-rating">
-                        <Rating rating={book.averageRating} rateable={false} book_id={book.id} refetch={reFetchBookData} />
+                        <Rating rating={book.averageRating} rateable={false} book_id={book.id} refetch={reFetchBookData} setNotification={setNotification} />
                         <h4>Rated by: {book.ratingCount} Users</h4>
                     </div>
                     <p className="book-abstract">{book.abstract}</p>
@@ -262,7 +369,7 @@ export default function Book()
                     </div>
                     <div className="user-rating">
                         <h3>Your Rating: </h3>
-                        <Rating className="rating" rating={0} rateable={true} book_id={book.id} refetch={reFetchBookData}/>
+                        <Rating className="rating" rating={0} rateable={true} book_id={book.id} refetch={reFetchBookData} setNotification={setNotification}/>
                     </div>
                     <button className="add-to-list-btn" onClick={manageList}>
                         {added? "Remove From List" : "Add to List"}</button>
@@ -273,7 +380,7 @@ export default function Book()
                 <h2>WRITE REVIEW</h2>
                 <div className="review-main-container">
                     <div className="review-left-container">
-                        <img src={parsedUser.user_img ? parsedUser.user_img : "/images/default-profile-image.jpg"} alt="User" />
+                        <img src={user ? user.user_img : "/images/default-profile-image.jpg"} alt="User" />
                     </div>
                     <div className="review-right-container">
                         <textarea name="user-review" id="user-review" placeholder="Type your Review here..." ref={reviewBox}></textarea>

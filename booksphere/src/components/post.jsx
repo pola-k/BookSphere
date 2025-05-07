@@ -58,7 +58,7 @@ export default function Post({ post, feedType, isSaved }) {
                 setNumLikes(numLikes - 1);
 
         } catch (error) {
-            setMessage(err.response?.data?.message || "Post's like could not be toggled");
+            setMessage(error.response?.data?.message || "Post's like could not be toggled");
         }
     };
 

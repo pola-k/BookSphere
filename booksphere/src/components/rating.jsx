@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import axios from "axios";
 
-export default function Rating({ rating, rateable, book_id, refetch }) {   
+export default function Rating({ rating, rateable, book_id, refetch, setNotification }) {   
     const stars = Array(5).fill(0);
     const [selectedRating, setSelectedRating] = useState(rating);
     const [hoverValue, setHoverValue] = useState(null);
     const userId = sessionStorage.getItem("user_id");
 
     useEffect(() => {
-        if(rateable)
+        if(rateable && userId)
         {
             fetchRating();
         }
@@ -23,7 +23,12 @@ export default function Rating({ rating, rateable, book_id, refetch }) {
     }, [rating]);
     
 
-    async function updateRating(value) {
+    async function updateRating(value) 
+    {
+        if(userId === null)
+        {
+            return;
+        }
         try 
         {
             const rating_status = await axios.post(`http://localhost:5001/api/rating/updateRating`, {
@@ -39,6 +44,10 @@ export default function Rating({ rating, rateable, book_id, refetch }) {
     }
 
     async function fetchRating() {
+        if(userId === null)
+        {
+            return;
+        }
         try 
         {
             const response = await axios.get(`http://localhost:5001/api/rating/getRating`, {
@@ -61,10 +70,16 @@ export default function Rating({ rating, rateable, book_id, refetch }) {
     
 
     const handleClickStar = async (value) => {
-        if (rateable) {
+        if (rateable && userId) 
+        {
             setSelectedRating(value);
             await updateRating(value);
             await refetch();
+        }
+        else if(rateable && userId === null)
+        {
+            setNotification("Please log in to rate books");
+            return
         }
     };
 

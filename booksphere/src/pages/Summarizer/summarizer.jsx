@@ -1,38 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/navbar";
+import './summarizer.css';
 
 export default function Summarizer() {
     const [fileName, setFileName] = useState("");
-    const [fileContent, setFileContent] = useState("");
     const [summary, setSummary] = useState("");
+    const [file, setFile] = useState(null); 
+    const [notification, setNotification] = useState("");
+    const [inprogress, setInProgress] = useState(false);
 
     const handleFileUpload = (e) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+    const uploadedFile = e.target.files?.[0];
+    if (!uploadedFile) return;
 
-        setFileName(file.name);
+    setFile(uploadedFile);
+    setFileName(uploadedFile.name.toUpperCase());
+    setSummary("");
+    };
 
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const text = event.target?.result;
-            setFileContent(text);
-            setSummary(""); // clear old summary
-        };
+    useEffect(() => {
+        if (notification && notification !== "Generating summary") {
+          const t = setTimeout(() => {
+            if(inprogress)
+                setNotification("Generating summary")
+            else
+                setNotification("")}, 3000);
+          return () => clearTimeout(t);
+        }
+      }, [notification]);
 
-        if (file.type === "text/plain") {
-            reader.readAsText(file);
-        } else if (file.type === "application/pdf") {
-            setSummary("📄 PDF support coming soon. Please upload a .txt file for now.");
-        } else {
-            setSummary("⚠️ Unsupported file type. Please upload a .txt or .pdf file.");
+    const handleSummarize = async () => {
+        if (inprogress)
+        {
+            setNotification("Please wait for the current summary to finish.");
+            return;
+        } 
+
+        setInProgress(true);
+        
+        if (!file)
+        {
+            setNotification("Please upload a file first.");
+            setInProgress(false);
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("file", file);
+    
+        try 
+        {
+            setNotification("Generating summary");
+            setSummary("Generating summary... Please wait.");
+            const response = await fetch("http://localhost:5000/summarize", {
+                method: "POST",
+                body: formData,
+            });
+    
+            if (!response.ok || !response.body) {
+                setSummary("Error: Failed to stream summary.");
+                return;
+            }
+    
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let result = "";
+    
+            while (true) 
+            {
+                const { done, value } = await reader.read();
+                if (done) break;
+                const chunk = decoder.decode(value, { stream: true });
+                result += chunk;
+                setSummary((prev) => prev.replace("Generating summary... Please wait.", "") + chunk + "Generating summary... Please wait.");
+            }
+            setSummary((prev) => prev.replace("Generating summary... Please wait.", "\n\nEND\n\n"));
+            setNotification("Summary generated successfully!");
+        } 
+        catch (err) 
+        {
+            setInProgress(false);
+            setSummary("Error: Failed to Generate Summary.");
+            setNotification("Server Error")
         }
     };
-
-    const handleSummarize = () => {
-        if (!fileContent.trim()) return;
-        const short = fileContent.slice(0, 300);
-        setSummary(`✨ Summary:\n${short}...\n\n(This is a simulated preview.)`);
-    };
+    
 
     return (
         <div
@@ -55,7 +107,11 @@ export default function Summarizer() {
             `}</style>
 
             <Navbar />
-
+            {notification && (
+                        <div className="notification-container">
+                            <div className="notification">{notification}</div>
+                        </div>
+                    )}
             {/* Header */}
             <header className="w-full py-20 px-6 text-center">
                 <h1 className="text-6xl font-extrabold tracking-tight text-gray-900 mb-4 pop-in">

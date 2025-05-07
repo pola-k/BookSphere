@@ -11,9 +11,15 @@ export default function List() {
     const userId = sessionStorage.getItem("user_id");
     const [bookList, setBookList] = useState([])
     const [loading, setLoading] = useState(true);
+    const[notification, setNotification] = useState("")
 
     useEffect(() => {
         const fetchUserList = async () => {
+            if(userId === null)
+            {
+                setLoading(false)
+                return
+            }
             try 
             {
                 const response = await axios.get(`http://localhost:5001/api/list/getUserList/`, {
@@ -45,6 +51,15 @@ export default function List() {
         fetchUserList();
     }, [userId]);
         
+    useEffect(() => {
+        if(notification !== "")
+        {
+            setTimeout(() => {
+                setNotification("");
+            }, 3000);
+        }
+    },[notification])
+
     const bookListComponents = bookList ? bookList.map(book => <ListBook
                                                     key={book.id}                   
                                                     id={book.id}
@@ -54,6 +69,10 @@ export default function List() {
 
     async function removeFromList(bookToRemoveID)
     {
+        if(userId === null)
+        {
+            return;
+        }
         try
         {
             const book_status = await axios.delete(`http://localhost:5001/api/list/removeBookFromList/`, {
@@ -62,6 +81,11 @@ export default function List() {
                     book_id: bookToRemoveID
                 }
             });
+
+            if(book_status.status === 200)
+            {
+                setNotification("Book Removed from List Successfully")
+            }
         }
         catch (err)
         {
@@ -90,13 +114,18 @@ export default function List() {
                     <div className='sidebar-container'>
                         <Sidebar />
                     </div>
+                    {notification && (
+                        <div className="notification-container">
+                            <div className="notification">{notification}</div>
+                        </div>
+                    )}
                     {bookList.length > 0 ? (
                         <div className="content-container">
                             {bookListComponents}
                         </div>
                     ) : (
                         <div className="no-books-container">
-                            <h1 className="no-books">No Books in List</h1>
+                            <h1 className="no-books">{userId === null ? "Login to View List" : "No Books in List"}</h1>
                         </div>
                     )}
                 </div>
