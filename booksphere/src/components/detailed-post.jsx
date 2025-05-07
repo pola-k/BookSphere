@@ -1,32 +1,75 @@
-import { Link } from "react-router-dom";
-import { CircleArrowRight } from "lucide-react";
-import { useRef, useEffect, useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import Post from "./post"
 import Comment from "./comment";
 import CommentBox from "./comment-box";
-import {posts} from "../../posts_data"  // dummy data
+import Loading from "./Loading/Loading.jsx";
 
-export default function DetailedPost({ post_id }) { // use post_id to fetch comments + make sure to convert it to int/num before api call
-                                                    // as this prop is being extracted using useParams() which makes it a string
-    
-    // get post's comments using api call
-    // how to get the post itself?  maybe separate out the apis of simple posts and posts with comments???
+export default function DetailedPost() {
 
-    // single post
-    let post_with_comments = posts.find((postObj) => postObj.id === parseInt(post_id))
-    console.log(post_with_comments)
+    const { state } = useLocation();
+    const { postID } = useParams();
+    const feedType = state.feedType;
+    const userID = sessionStorage.getItem("user_id");
+    const [post, setPost] = useState(state?.post || null);
+    const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [message, setMessage] = useState("");
 
-    // Add check for fetched post
-    if (!post_with_comments)
-        return null
+
+    useEffect(() => {
+
+        if (!post) {
+
+            try {
+                axios.get("http://localhost:5001/api/auth/get-single-post",
+                    {
+                        params: {
+                            user_id: userID,
+                            post_id: postID,
+                        },
+                        withCredentials: true,
+                    }
+
+                ).then((res) => setPost(res.data));
+
+            } catch (error) {
+                setMessage(error.response?.data?.message || 'Error fetching post...');
+            }
+        }
+
+        const getComments = async () => {
+
+            try {
+                const response = await axios.get("http://localhost:5001/api/auth/get-comments",
+                    {
+                        params: { post_id: postID, user_id: userID },
+                        withCredentials: true,
+                    }
+                );
+
+                const fetched_comments = response.data.comments;
+                setComments(fetched_comments);
+                setLoading(false);
+
+            } catch (error) {
+                setMessage(error.response?.data?.message || 'Error fetching post\'s comments...');
+            }
+        };
+
+        getComments();
+
+
+    }, [postID]);
 
     function renderComments(comment, depth) {
 
         if (comment) {
             return (
                 <div className="flex flex-col gap-[1.75vh]">
-
-                    <Comment key={comment.id} comment={comment} depth={depth} />
+                    
+                    <Comment key={comment.id} comment={comment} depth={depth} postID={postID} />
 
                     <div>
 
@@ -52,26 +95,37 @@ export default function DetailedPost({ post_id }) { // use post_id to fetch comm
 
         <div className="flex flex-col gap-[3vh]">
 
-            <Post key={post_with_comments.id} post={post_with_comments} />
-
-            {/* Sending parent_id = 0 as these are root comments */}
-            <CommentBox parent_id={0}/> 
+            <Post key={post.id} post={post} feedType={feedType} isSaved={post.isSaved} />
 
             {/* Comments */}
-            <div className="flex flex-col gap-[2vh]">
+            {!loading ?
 
-                {post_with_comments.comments && (post_with_comments.comments.length > 0) ?
+                <>
+                    {/* Sending parent_id = 0 as these are root comments */}
+                    <CommentBox parentID={null} postID={postID} depth={1}/>
 
-                    post_with_comments.comments.map((commentsObject) => (
-                        renderComments(commentsObject, 1)
+                    <div className="flex flex-col gap-[2vh]">
 
-                        // Maybe add showoptions{true/false later on depending on if user is signed in or not}
-                    )) :
+                        {comments && (comments.length > 0) ?
 
-                    <div className="text-center text-[1vw] text-[var(--postcolor)] mt-[4vh]"> Oh oh...you're the first one here. Let's get the conversation flowing! </div>
-                }
+                            comments.map((commentsObject) => (
+                                renderComments(commentsObject, 1)
 
-            </div>
+                                // Maybe add showoptions{true/false later on depending on if user is signed in or not}
+                            )) :
+
+                            <div className="text-center text-[1vw] text-[var(--postcolor)] mt-[4vh]"> Oh oh...you're the first one here. Let's get the conversation flowing! </div>
+                        }
+
+                    </div>
+                </>
+
+                :
+
+                <div>
+                    <Loading />
+                </div>
+            }
 
         </div>
     )

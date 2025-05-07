@@ -5,9 +5,9 @@ import { Dot } from "lucide-react";
 import message_bubble from '/images/speech-bubble.png';
 import CommentBox from "./comment-box";
 
-export default function Comment({ comment, depth }) {
+export default function Comment({ comment, depth, postID }) {
 
-    // rdeal with very long chain of replies by paging
+    // deal with very long chain of replies by paging
 
     const [liked, setLiked] = useState(false);
     const [reply, setReply] = useState(false);
@@ -31,9 +31,9 @@ export default function Comment({ comment, depth }) {
                 <div className="flex w-full items-center justify-between text-[0.80vw]">
 
                     <div className="flex gap-[0.15vw] items-center">
-                        <p className="font-semibold">{comment.user}</p>
+                        <p className="font-semibold">{comment.username}</p>
                         <Dot />
-                        <p>{formatDate(comment.date)}</p>
+                        <p>{formatDate(comment.date_created)}</p>
                     </div>
 
                 </div>
@@ -63,7 +63,7 @@ export default function Comment({ comment, depth }) {
                             />
                         </svg>
 
-                        {comment.likes}
+                        {comment.likes_count}
 
                     </div>
 
@@ -71,11 +71,11 @@ export default function Comment({ comment, depth }) {
 
                     <div className="flex gap-[0.5vw] transition-transform duration-100 ease-in-out hover:-translate-y-[0.3vh] text-[var(--navbarcolor)] cursor-pointer" onClick={() => setReply(!reply)}>
                         <img src={message_bubble} alt="" className="h-[1vw]" />
-                        <p className="text-[0.9vw]">Reply</p>
+                        <p className="text-[0.8vw]">Reply</p>
                     </div>
 
                     {/* configure properly to send the reply/comment and parent id and maybe depth too*/}
-                    {reply && <CommentBox parent_id={comment.id}/> }
+                    {reply && <CommentBox parentID={comment.id} postID={postID} depth={depth}/> }
 
                 </div>
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dot } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { toZonedTime } from "date-fns-tz";
@@ -8,12 +8,13 @@ import PostOptionsModal from "./post-options-modal";
 import axios from "axios";
 
 export default function Post({ post, feedType, isSaved }) {
-    
+
     const [liked, setLiked] = useState(post.liked);
     const [numLikes, setNumLikes] = useState(post.likes_count);
     const [copied, setCopied] = useState(false);
     const [isOptionsModal, ToggleOptionsModal] = useState(false)
     const [message, setMessage] = useState("")
+    const navigate = useNavigate();
 
     const userId = sessionStorage.getItem("user_id");
 
@@ -33,7 +34,7 @@ export default function Post({ post, feedType, isSaved }) {
     };
 
     const togglePostLike = async () => {
-        
+
         try {
             console.log("inside try block")
             const payload = {
@@ -55,7 +56,7 @@ export default function Post({ post, feedType, isSaved }) {
                 setNumLikes(numLikes + 1);
             else
                 setNumLikes(numLikes - 1);
-            
+
         } catch (error) {
             setMessage(err.response?.data?.message || "Post's like could not be toggled");
         }
@@ -69,7 +70,7 @@ export default function Post({ post, feedType, isSaved }) {
                 <div className="flex w-full items-center justify-between text-[0.95vw]">
                     <div className="flex gap-[0.25vw] items-center">
                         <p>{post.username}</p>
-                        <Dot/>
+                        <Dot />
                         <p>{formatDate(post.date_created)}</p>
                     </div>
 
@@ -78,12 +79,12 @@ export default function Post({ post, feedType, isSaved }) {
                         <img src="/images/dots.png" alt="" className="h-[1.25vw]" />
 
                         <PostOptionsModal
-                          isOpen={isOptionsModal}
+                            isOpen={isOptionsModal}
                             closeModal={ToggleOptionsModal}
-                             feedType={feedType}
-                             postID={post.id}
-                             isSaved={isSaved}
-/>  
+                            feedType={feedType}
+                            postID={post.id}
+                            isSaved={isSaved}
+                        />
 
                     </div>
                 </div>
@@ -131,11 +132,9 @@ export default function Post({ post, feedType, isSaved }) {
                     </div>
 
                     {/* Comments */}
-                    <Link to={`/comments/${post.id}`}>
-                        <div className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
-                            <img src="/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
-                        </div>
-                    </Link>
+                    <div onClick={() => navigate(`/comments/${post.id}`, { state: { post, feedType } })} className="p-[0.60vw] rounded-3xl transition-transform duration-300 ease-in-out hover:-translate-y-[0.5vh] text-[var(--navbarcolor)] bg-[var(--bgcolorlight)]">
+                        <img src="/images/speech-bubble.png" alt="" className="h-[1.25vw]" />
+                    </div>
 
                     {/* Share */}
                     <div
@@ -148,7 +147,7 @@ export default function Post({ post, feedType, isSaved }) {
                     {/* Copy Message */}
                     {copied && (
                         <div className="z-60 fixed top-22/25 left-1/2 transform -translate-x-1/2 -translate-y-1/2 px-[3vw] py-[1vh] rounded-2xl text-3xl font-bold text-[var(--postcolor)] bg-[var(--bgcolorlight)]">
-                            Link Copied!
+                            Post's Link Copied!
                         </div>
                     )}
                 </div>
