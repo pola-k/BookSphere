@@ -1,74 +1,46 @@
 import Post from "./post"
-import { useState, useEffect } from "react";
 import axios from "axios";
-import Loading from "./Loading/Loading.jsx";
+import InfiniteScroll from "./infinite-scroll";
 
 export default function HomeFeed({ feedType }) {
 
-    const [page, setPage] = useState(1);
-    const [EOP, setEOP] = useState(false);
-    const [limit, setLimit] = useState(10);
-    const [message, setMessage] = useState("");
-    const [loading, setLoading] = useState(true);
+    const userID = sessionStorage.getItem("user_id");
 
-    const [posts, setPosts] = useState([]);
-    const userId = sessionStorage.getItem("user_id");
+    const getPosts = async (pageNum, objectLimit) => {
 
-    useEffect(() => {
+        const payload = {
+            user_id: userID,
+            type: feedType,
+            page: pageNum,
+            limit: objectLimit,
+        };
 
-        const getPosts = async () => {
-
-            const payload = {
-                user_id: userId,
-                type: feedType,
-                page: page,
-                limit: limit,
-            };
-
-            try {
-                const response = await axios.get('http://localhost:5001/api/auth/get-posts',
-                    {
-                        params: payload,
-                        withCredentials: true,
-                    }
-                );
-
-                const posts_list = response.data.posts
-
-                if (posts_list.length > 0) {
-                    const updated_posts = [...posts, ...posts_list]
-                    setPosts(updated_posts);
+        try {
+            const response = await axios.get('http://localhost:5001/api/auth/get-posts',
+                {
+                    params: payload,
+                    withCredentials: true,
                 }
+            );
 
-                else
-                    setMessage("No Posts Yet...")
-                // increment in page no.
+            const posts_list = response.data.posts;
+            return posts_list;
 
-            } catch (error) {
-                setMessage(error.response?.data?.message || 'Error fetching posts...');
-            } 
-            finally {
-                setLoading(false);
-            }
+        } catch (error) {
+            throw error;
+        }
 
-        };
+    };
 
-        const handleScroll = () => {
-
-        };
-
-        getPosts();
-
-    }, [page])
-
-    function renderPosts(posts) {
+    const renderPosts = (posts, lastElementRef, hasMore) => {
 
         if (posts.length > 0) {
             return (
                 <div className="flex flex-col gap-[5vh]">
-                    {posts.map((postObject) => (
-                        <Post key={postObject.id} post={postObject} feedType={feedType} isSaved={postObject.isSaved}/>
-                        // Maybe add showoptions{true/false later on depending on if user is signed in or not}
+                    {posts.map((postObject, index) => (
+                        <div key={postObject.id} ref={posts.length === index + 1 && hasMore ? lastElementRef : null}>
+                            <Post post={postObject} feedType={feedType} isSaved={postObject.isSaved} />
+                        </div>
                     ))}
                 </div>
             );
@@ -78,17 +50,8 @@ export default function HomeFeed({ feedType }) {
         }
     }
 
-    if (loading) {
-        return (
-            <Loading />
-        )
-    }
-
     return (
 
-        <div>
-            {renderPosts(posts)}
-        </div>
+        <InfiniteScroll fetchObjects={getPosts} renderObjects={renderPosts} />
     )
 }
-

@@ -47,7 +47,6 @@ export default function Post({ post, feedType, isSaved }) {
                     withCredentials: true,
                 }
             );
-            console.log("after api call", response)
 
             const updated_like = !liked
             setLiked(updated_like);
