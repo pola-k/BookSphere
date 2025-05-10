@@ -68,7 +68,7 @@ export default function DetailedPost() {
         if (comment) {
             return (
                 <div className="flex flex-col gap-[1.75vh]">
-                    
+
                     <Comment key={comment.id} comment={comment} depth={depth} postID={postID} />
 
                     <div>
