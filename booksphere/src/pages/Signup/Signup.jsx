@@ -11,6 +11,7 @@ export default function Signup()
 
   e.preventDefault();
 
+  
   const username = e.target.username.value;
   const email = e.target.email.value;
   const password = e.target.password.value;
@@ -18,6 +19,8 @@ export default function Signup()
   const name = e.target.name.value;
   try {
     const res = await axios.post("http://localhost:5001/api/auth/signup", {
+      
+      name,
       username,
       email,
       password
@@ -26,7 +29,7 @@ export default function Signup()
     });
 
     console.log("User signed up:", res.data);
-    navigate('/profile'); // Redirect to login page after successful signup
+    navigate('/explore'); // Redirect to login page after successful signup
     // You can rdirect or store res.data.user_id in sessionStorage
 
   } catch (err) {
