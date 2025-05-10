@@ -14,13 +14,43 @@ import SettingsPage from "../src/pages/settings/Settings";
 import Summarizer from "./pages/Summarizer/summarizer";
 import ProtectedRoute from "./components/protected_routes";
 import SavedPostsPage from "./pages/SavedPosts/saved-posts-page";
+import SearchResultsPage from "./pages/Search Results/search-results-page";
+import NotFoundPage from "./pages/NotFound/NotFoundPage";
+
 export default function App() {
   const router = createBrowserRouter([
-    { path: "/", element: <Homepage /> },
-    { path: "/login", element: <Login /> },
-    { path: "/signup", element: <Signup /> },
-    { path: "/home", element: <Homepage /> },
-    { path: "/list", element: <List /> },
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Homepage />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/login",
+      element: <Login />
+    },
+    {
+      path: "/signup",
+      element: <Signup />
+    },
+    {
+      path: "/home",
+      element: (
+        <ProtectedRoute>
+          <Homepage />
+        </ProtectedRoute>
+      ),
+    },
+    {
+      path: "/list",
+      element: (
+        <ProtectedRoute>
+          <List />
+        </ProtectedRoute>
+      ),
+    },
     {
       path: "/subscription",
       element: (
@@ -29,8 +59,14 @@ export default function App() {
         </ProtectedRoute>
       ),
     },
-    { path: "/book/:id", element: <Book /> },
-    { path: "/explore", element: <Explore /> },
+    {
+      path: "/book/:id",
+      element: <Book />
+    },
+    {
+      path: "/explore",
+      element: <Explore />
+    },
     {
       path: "/profile",
       element: (
@@ -65,17 +101,35 @@ export default function App() {
     },
     {
       path: "/summarizer",
-      element: <Summarizer />,
+      element: (
+        <ProtectedRoute>
+          <Summarizer />
+        </ProtectedRoute>
+      ),
     },
     {
-      path: "/saved", // ✅ new route
+      path: "/saved",
       element: (
         <ProtectedRoute>
           <SavedPostsPage />
         </ProtectedRoute>
       ),
     },
+    {
+      path: "/search",
+      element: (
+        <SearchResultsPage />
+      ),
+    },
+    {
+      path: "*",
+      element: (
+        <NotFoundPage />
+      ),
+    },
+
   ]);
+
 
   return <RouterProvider router={router} />;
 }

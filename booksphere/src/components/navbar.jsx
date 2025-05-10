@@ -1,47 +1,9 @@
-'use client';
-
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react';
 import ProfileIconModal from './profile-icon-modal';
+import SearchBar from './search-bar';
 
 export default function Navbar() {
-  //   const [isMounted, setIsMounted] = useState(false); // Track if the component has mounted
-
-
-  //   useEffect(() => {
-  //     // Mark component as mounted only after the component mounts
-  //     setIsMounted(true);
-  //   }, []);
-
-  //   // Render logic based on the router pathname
-  //   const renderHeaderContent = () => {
-  //     if (!isMounted) {
-  //       return null;  // Prevent rendering before mount
-  //     }
-
-  //     else {
-
-  //       switch (usePathname()) {    // usePathname() + next/navigation solved the issue
-  //         case '/':
-  //           return (
-  //             <div className="flex-shrink-0 space-x-4">
-  //               <Link href="/login" className="bg-darkOrange text-white font-bold px-6 py-2 rounded-lg shadow-md hover:bg-lightOrange transition-colors">
-  //                 Login
-  //               </Link>
-  //               <Link href="/register" className="bg-darkOrange text-white font-bold px-6 py-2 rounded-lg shadow-md hover:bg-lightOrange transition-colors">
-  //                 Sign Up
-  //               </Link>
-  //             </div>
-  //           );
-
-  //         default:
-  //           return (
-  //             <ProfileIcon />
-  //           );
-
-  //       }
-  //     }
-  //   };
 
   const [isProfileModal, ToggleProfileModal] = useState(false)
 
@@ -61,19 +23,8 @@ export default function Navbar() {
         </div>
 
         {/* Search Bar */}
-        <div className="flex items-center border-[0.25vh] border-[var(--bordercolor)] bg-[var(--bgcolorlight)] text-[var(--headingcolordark)] rounded-4xl px-[1vw] py-[1.25vh] w-[50vw] text-[1vw]">
-          <input
-            type="text"
-            placeholder="Search..."
-            // value={query}
-            // onChange={(e) => setQuery(e.target.value)}
-            className="outline-none w-full bg-transparent"
-          />
-          <button className="text-gray-500 hover:cursor-pointer">
-            <img src="/images/search.png" alt="" className='h-[1.5vw]'/>
-          </button>
-        </div>
-
+        <SearchBar />
+      
         {/* Navigation Tabs */}
         <div className="flex justify-center items-center gap-[2vw]">
 
