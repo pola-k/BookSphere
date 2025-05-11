@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import "./ListBook/Listbook.css"
 import ListBook from './ListBook/Listbook.jsx';
-import InfiniteScroll from './infinite-scroll copy.jsx';
+import InfiniteScroll from './infinite-scroll.jsx';
 import axios from 'axios';
 
 export default function SearchResults() {

@@ -51,7 +51,6 @@ export default function Signup()
                         <form className='form' onSubmit={handleSignup} >
 
                             <input className='input-field' type="text" placeholder="Name" id="name" name='name' required/>
-
                             <input className='input-field' type="text" placeholder="Username" id="username" name='username' required/>
                             <input className='input-field' type="email" placeholder="Email" id="email" name='email' required/>
                             <input className='input-field' type="password" placeholder="Password" id="password" name='password' required/>

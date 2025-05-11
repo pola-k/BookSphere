@@ -1,6 +1,6 @@
 import axios from "axios";
 import Post from "./post";
-import InfiniteScroll from "./infinite-scroll copy";
+import InfiniteScroll from "./infinite-scroll";
 
 export default function SavedPosts() {
 
