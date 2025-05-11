@@ -17,12 +17,12 @@ export default function SettingsPage() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const [bio,setBio] = useState('');
 
   // refs to store original values for change detection
   const origName = useRef('');
   const origEmail = useRef('');
   const origImage = useRef(null);
+  const [bio, setBio] = useState('');
   const origBio = useRef('');
 
   // Load existing profile on mount using your profile API
@@ -32,11 +32,14 @@ export default function SettingsPage() {
         if (!userId) throw new Error('No user_id in sessionStorage');
         // GET current profile; matches your ProfilePage endpoint
         const res = await axios.get(`/api/auth/profile/${userId}`);
-        const { username, fullName, imageUrl } = res.data;
+        const { username, fullName, imageUrl , bio } = res.data;
 
         // Populate form fields
         setName(fullName || '');        // map fullName to name
-        setEmail(username || '');       // map username (email) to email
+        setEmail(username || '');  
+        
+        setBio(bio || '');
+        origBio.current = bio || '';    // map username (email) to email
 
         // Store original refs for change comparison
         origName.current = fullName || '';
@@ -85,6 +88,7 @@ export default function SettingsPage() {
       if (name !== origName.current) formData.append('name', name);
       if (email !== origEmail.current) formData.append('email', email);
       if (password) formData.append('password', password);
+      if (bio !== origBio.current) formData.append('bio', bio);
       if (file) formData.append('profile_pic', file); // match backend field name
 
       // POST to update endpoint
@@ -168,7 +172,17 @@ export default function SettingsPage() {
               className="w-full p-[1vh] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)]"
             />
           </div>
-
+          {/* Bio field */}
+          <div className="mb-[3vh]">
+            <label className="block text-[1.2vw] mb-[1vh]">Bio</label>
+            <textarea
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              rows={4}
+              placeholder="Tell us something about yourself..."
+              className="w-full p-[1vh] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)] resize-none"
+            />
+          </div>
           {/* Password change field */}
           <div className="mb-[3vh]">
             <label className="block text-[1.2vw] mb-[1vh]">Password</label>
