@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Eye, EyeOff } from 'lucide-react'; // optional, using lucide icons
 import Navbar from '../../components/navbar';
 import axios from 'axios';
 
@@ -17,6 +18,8 @@ export default function SettingsPage() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   // refs to store original values for change detection
   const origName = useRef('');
@@ -183,16 +186,24 @@ export default function SettingsPage() {
               className="w-full p-[1vh] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)] resize-none"
             />
           </div>
-          {/* Password change field */}
-          <div className="mb-[3vh]">
+        {/* Password change field */}
+          <div className="mb-[3vh] relative">
             <label className="block text-[1.2vw] mb-[1vh]">Password</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full p-[1vh] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)]"
+              className="w-full p-[1vh] pr-[3vw] rounded-xl bg-[var(--bgcolorlight)] text-[var(--postcolor)]"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 bottom-[1.1vh] text-xl cursor-pointer"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
           </div>
 
           {/* Submit button */}
