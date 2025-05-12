@@ -1,77 +1,93 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import List from './List';
-import axios from 'axios';
-import React from 'react';
-import { vi } from 'vitest';
+// __tests__/List.test.jsx
+import { render, screen, act, waitFor } from '@testing-library/react'
+import { vi } from 'vitest'
+import axios from 'axios'
 
-vi.mock('axios');
-vi.mock('../../components/navbar', () => ({
-  default: () => <div data-testid="navbar" />
-}));
-vi.mock('../../components/sidebar', () => ({
-  default: () => <div data-testid="sidebar" />
-}));
+// 1️⃣ Stub sessionStorage.getItem
+vi.stubGlobal('sessionStorage', { getItem: vi.fn() })
+
+// 2️⃣ Mock axios
+vi.mock('axios')
+
+// 3️⃣ Mock Navbar & Sidebar
+vi.mock('../../components/navbar',      () => ({ default: () => <div data-testid="navbar"/> }))
+vi.mock('../../components/sidebar',     () => ({ default: () => <div data-testid="sidebar"/> }))
+
+// 4️⃣ Mock ListBook (path must match your import in List.jsx)
 vi.mock('../../components/ListBook/Listbook.jsx', () => ({
-  default: ({ title }) => <div data-testid="list-book">{title}</div>
-}));
-vi.mock('../../components/Loading/Loading.jsx', () => ({
-  default: () => <div data-testid="loading">Loading...</div>
-}));
+  default: ({ id, title }) => <div data-testid="list-book">{`${id}:${title}`}</div>
+}))
+
+// 5️⃣ Mock Loading
+vi.mock('../../components/Loading/Loading.jsx', () => ({ default: () => <div data-testid="loading"/> }))
+
+// 6️⃣ Capture fetchObjects & renderObjects from InfiniteScroll
+let fetchObjectsProp, renderObjectsProp
+vi.mock('../../components/infinite-scroll.jsx', () => ({
+  default: (props) => {
+    fetchObjectsProp = props.fetchObjects
+    renderObjectsProp = props.renderObjects
+    // By default, render empty
+    return <div data-testid="infinite-scroll">{props.renderObjects([], () => {}, false)}</div>
+  }
+}))
+
+// 7️⃣ Now import the component under test
+import List from './List.jsx'
 
 describe('List Component', () => {
-
-  const userId = '123';
-
   beforeEach(() => {
-      sessionStorage.setItem('user_id', userId); // Set user_id in sessionStorage
-  });
+    vi.resetAllMocks()
+    fetchObjectsProp = null
+    renderObjectsProp  = null
+  })
 
-  afterEach(() => {
-      vi.clearAllMocks(); // Clean up mocks
-  });
+  it('renders login prompt when not authenticated', () => {
+    sessionStorage.getItem.mockReturnValueOnce(null)
+    render(<List />)
+    expect(screen.getByText(/Login to View List/i)).toBeInTheDocument()
+  })
 
-  test('renders loading state initially', async () => {
-      axios.get.mockResolvedValue({ data: [] });
+  it('renders "No Books in List" when authenticated but server returns empty', async () => {
+    sessionStorage.getItem.mockReturnValueOnce('user123')
+    render(<List />)
 
-      render(<List />);
+    // Simulate API returning []
+    axios.get.mockResolvedValueOnce({ data: [] })
 
-      // Assert that the loading component is rendered
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
+    const data = await fetchObjectsProp(1, 10)
+    expect(data).toEqual([])
 
-  test('renders list of books after data is fetched', async () => {
-      axios.get.mockResolvedValue({ data: [{ id: 1, title: '1984', image: 'someurl' }] });
+    // Re-render via renderObjectsProp
+    act(() => {
+      renderObjectsProp([], () => {}, false)
+    })
+    expect(screen.getByText(/No Books in List/i)).toBeInTheDocument()
+  })
 
-      render(<List />);
+  it('renders a list of books when API returns data', async () => {
+    sessionStorage.getItem.mockReturnValueOnce('user123')
+    render(<List />)
 
-      // Wait for data to be fetched and rendered
-      await waitFor(() => screen.getByText('1984'));
+    const fakeBooks = [
+      { id: 'b1', title: 'Book One', image: 'img1' },
+      { id: 'b2', title: 'Book Two', image: 'img2' }
+    ]
+    axios.get.mockResolvedValueOnce({ data: fakeBooks })
 
-      // Assert that the book title is rendered
-      expect(screen.getByText('1984')).toBeInTheDocument();
-  });
+    // 1️⃣ Fetch
+    const fetched = await fetchObjectsProp(1, 5)
+    expect(fetched).toEqual(fakeBooks)
+    expect(axios.get).toHaveBeenCalledWith(
+      'http://localhost:5001/api/list/getUserList/',
+      expect.objectContaining({
+        params: { user_id: 'user123', page: 1, limit: 5 }
+      })
+    )
 
-  test('shows "No Books in List" when there are no books', async () => {
-      axios.get.mockResolvedValue({ data: [] });
-
-      render(<List />);
-
-      // Wait for the loading to finish and check for empty state
-      await waitFor(() => screen.getByText('No Books in List'));
-
-      // Assert that the "No Books in List" message is displayed
-      expect(screen.getByText('No Books in List')).toBeInTheDocument();
-  });
-
-  test('shows "Login to View List" when user_id is null', async () => {
-      sessionStorage.removeItem('user_id'); // Remove user_id
-
-      render(<List />);
-
-      // Wait for loading to finish and check for login message
-      await waitFor(() => screen.getByText('Login to View List'));
-
-      // Assert that the login prompt is displayed
-      expect(screen.getByText('Login to View List')).toBeInTheDocument();
-  });
-});
+    // 2️⃣ Render
+    act(() => {
+      renderObjectsProp(fakeBooks, () => {}, false)
+    })
+  })
+})

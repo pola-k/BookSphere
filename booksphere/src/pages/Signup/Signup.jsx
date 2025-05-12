@@ -15,8 +15,8 @@ export default function Signup()
   const username = e.target.username.value;
   const email = e.target.email.value;
   const password = e.target.password.value;
-
   const name = e.target.name.value;
+  
   try {
     const res = await axios.post("http://localhost:5001/api/auth/signup", {
       
