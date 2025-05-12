@@ -16,7 +16,7 @@ import ProtectedRoute from "./components/protected_routes";
 import SavedPostsPage from "./pages/SavedPosts/saved-posts-page";
 import SearchResultsPage from "./pages/Search Results/search-results-page";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
-
+import PaymentInstructions from "./pages/Subscription/paymentinstruction";
 export default function App() {
   const router = createBrowserRouter([
     {
@@ -119,6 +119,12 @@ export default function App() {
       path: "/search",
       element: (
         <SearchResultsPage />
+      ),
+    },
+    {
+      path: "/subscriptioninstruction",
+      element: (
+        <PaymentInstructions />
       ),
     },
     {

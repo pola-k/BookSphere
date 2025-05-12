@@ -14,8 +14,8 @@ export default function Subscription() {
                 <p className="text-gray-300 text-sm mt-4 mb-4  md:text-left text-center">Pick one that works for you</p>
                 <img src={Crown} alt="Red Circle" className="w-30 h-30 absolute hidden sm:block top-4 right-4 sm:" />
                 <div className="flex flex-col sm:flex-row space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 items-center justify-center">
-                    <Card messages={[Myarray[0]]} />
-                    <Card messages={[Myarray[1]]} />
+                    <Card messages={[Myarray[0]]} hideButton={true} />
+                    <Card messages={[Myarray[1]]} hideButton={false} />
                 </div>
             </div>
         </div>
