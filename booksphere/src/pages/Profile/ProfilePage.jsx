@@ -35,7 +35,9 @@ export default function ProfilePage() {
           }
         );
 
-        console.log(response);
+        if (!response) {
+          throw new Error('Failed to fetch user data');
+        }
 
         setProfileData({
           username: response.data.username || 'Anonymous',
@@ -43,7 +45,9 @@ export default function ProfilePage() {
           description: response.data.description || 'No Bio',
           imageUrl: response.data.imageUrl || ProfilePic
         });
-      } catch (error) {
+      } 
+      catch (error) 
+      {
         console.log("Failed to fetch user data:", error);
 
       } finally {

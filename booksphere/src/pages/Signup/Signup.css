@@ -46,7 +46,7 @@
 .right-container 
 {
     padding: 4vh 2vw;
-    gap: 3vh;
+    gap: 1.25vh;
     min-height: 0;
     width: 100%;
 }
@@ -206,3 +206,21 @@
         padding: 1.2vh 1vw;
     }
 }
+.notification-bar {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .notification-bar.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .notification-bar.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
